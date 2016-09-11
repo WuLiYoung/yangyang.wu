@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="YYBottomView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="weddingdress" translatesAutoresizingMaskIntoConstraints="NO" id="CP1-Dt-OWD">
+                    <rect key="frame" x="2" y="2" width="46" height="46"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="46" id="hcj-BN-wpR"/>
+                        <constraint firstAttribute="width" constant="46" id="kHJ-F4-WGR"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="吴洋洋正在为你点歌！！" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B8s-zs-o2d">
+                    <rect key="frame" x="56" y="6" width="216" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="qy0-QK-H13"/>
+                        <constraint firstAttribute="width" constant="216" id="ynA-Kq-MpB"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12043124" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="khP-us-xfU">
+                    <rect key="frame" x="56" y="26" width="216" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="Nhq-3p-tRU"/>
+                        <constraint firstAttribute="width" constant="216" id="bLa-9f-7PV"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="playLine" translatesAutoresizingMaskIntoConstraints="NO" id="2Hw-Ul-Kcs">
+                    <rect key="frame" x="327" y="2" width="46" height="46"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="46" id="aNl-ed-GbP"/>
+                        <constraint firstAttribute="height" constant="46" id="iaR-IQ-3Fm"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hwa-ns-0xz">
+                    <rect key="frame" x="265" y="10" width="34" height="34"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="34" id="ImS-ch-QaL"/>
+                        <constraint firstAttribute="height" constant="34" id="gzQ-UN-SIG"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="pasue"/>
+                    <state key="highlighted" backgroundImage="pasueHight"/>
+                    <connections>
+                        <action selector="playOrPauseClickBtn:" destination="iN0-l3-epB" eventType="touchUpInside" id="Apm-Kc-ZFP"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="CP1-Dt-OWD" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="1lV-95-sNp"/>
+                <constraint firstAttribute="bottom" secondItem="2Hw-Ul-Kcs" secondAttribute="bottom" constant="2" id="2sw-pQ-Ar7"/>
+                <constraint firstItem="2Hw-Ul-Kcs" firstAttribute="leading" secondItem="Hwa-ns-0xz" secondAttribute="trailing" constant="28" id="73t-Y0-6cs"/>
+                <constraint firstAttribute="bottom" secondItem="Hwa-ns-0xz" secondAttribute="bottom" constant="6" id="H99-4O-8la"/>
+                <constraint firstItem="CP1-Dt-OWD" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="2" id="Kku-3S-y1j"/>
+                <constraint firstItem="B8s-zs-o2d" firstAttribute="leading" secondItem="CP1-Dt-OWD" secondAttribute="trailing" constant="8" id="NsH-2L-UUa"/>
+                <constraint firstItem="B8s-zs-o2d" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="6" id="QlF-yE-KEM"/>
+                <constraint firstAttribute="bottom" secondItem="khP-us-xfU" secondAttribute="bottom" constant="3" id="XNv-st-IBO"/>
+                <constraint firstItem="khP-us-xfU" firstAttribute="leading" secondItem="CP1-Dt-OWD" secondAttribute="trailing" constant="8" id="bVv-Hk-918"/>
+                <constraint firstAttribute="trailing" secondItem="2Hw-Ul-Kcs" secondAttribute="trailing" constant="2" id="d4M-aL-ne8"/>
+                <constraint firstItem="2Hw-Ul-Kcs" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="p5r-YE-ocB"/>
+                <constraint firstItem="Hwa-ns-0xz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="r9H-EE-i5Y"/>
+                <constraint firstAttribute="bottom" secondItem="CP1-Dt-OWD" secondAttribute="bottom" constant="2" id="wLv-MS-ceJ"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="headImage" destination="CP1-Dt-OWD" id="gSi-v0-yuH"/>
+                <outlet property="showPlayingImage" destination="2Hw-Ul-Kcs" id="fuw-VK-K78"/>
+                <outlet property="singerName" destination="khP-us-xfU" id="2AZ-uz-7s2"/>
+                <outlet property="songName" destination="B8s-zs-o2d" id="eIV-8c-wW0"/>
+            </connections>
+            <point key="canvasLocation" x="245.5" y="180"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="pasue" width="64" height="64"/>
+        <image name="pasueHight" width="64" height="64"/>
+        <image name="playLine" width="40" height="40"/>
+        <image name="weddingdress" width="336" height="296"/>
+    </resources>
+</document>
