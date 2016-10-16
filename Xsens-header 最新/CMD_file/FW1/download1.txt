@@ -1,0 +1,3 @@
+ERROR: Cannot connect to the nRF51 device.
+ERROR: Cannot connect to the nRF51 device.
+ERROR: Cannot connect to the nRF51 device.

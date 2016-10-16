@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{438B400C-90CD-458B-8C53-F110ADB5B867}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Senxda</RootNamespace>
+    <AssemblyName>Senxda</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Output\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\Output\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data.cs" />
+    <Compile Include="Example_mtix_mk4.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Example_mtix_mk4.Designer.cs">
+      <DependentUpon>Example_mtix_mk4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GT_Senxda.cs" />
+    <Compile Include="DeviceInfo.cs" />
+    <Compile Include="MyEventArgs.cs" />
+    <Compile Include="MasterInfo.cs" />
+    <Compile Include="MyXda.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="wrap_csharp32\IpProtocol.cs" />
+    <Compile Include="wrap_csharp32\NetworkLayerProtocol.cs" />
+    <Compile Include="wrap_csharp32\SnapshotStatusFlag.cs" />
+    <Compile Include="wrap_csharp32\SnapshotType.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_DataPacketPrivate.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_double.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_FILE.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_f_p_XsCallbackPlainC_p_XsDevicePtrArray_p_p_q_const__XsDataPacket__void.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_f_p_XsCallbackPlainC_p_XsDevice_enum_XsConnectivityState__void.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_f_p_XsCallbackPlainC_p_XsDevice_enum_XsDeviceState_enum_XsDeviceState__void.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_f_p_XsCallbackPlainC_p_XsDevice_enum_XsInfoRequest__void.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_f_p_XsCallbackPlainC_p_XsDevice_enum_XsResultValue__void.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_f_p_XsCallbackPlainC_p_XsDevice_int_int_int__void.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_f_p_XsCallbackPlainC_p_XsDevice_int_int_p_q_const__XsString__void.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_f_p_XsCallbackPlainC_p_XsDevice_long_long__void.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_f_p_XsCallbackPlainC_p_XsDevice_p_q_const__XsDataPacket__void.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_f_p_XsCallbackPlainC_p_XsDevice_p_q_const__XsMessage__int.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_f_p_XsCallbackPlainC_p_XsDevice_p_q_const__XsMessage__void.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_f_p_XsCallbackPlainC_p_XsDevice__void.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_int.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_long_long.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_p_XsDataPacket.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_p_XsDevice.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_std__string.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_std__vectorT_double_t.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_std__wstring.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_time_t.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_tm.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_unsigned_char.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_unsigned_short.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_void.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_wchar_t.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_XsArrayDescriptor.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_XsArrayImplT_XsDevicePtr_g_xsDevicePtrArrayDescriptor_XsDevicePtrArray_t__ArrayImpl.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_XsControl.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_XsDevice.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_XsSimpleVersion.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_XsSocket.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p_XsVersion.cs" />
+    <Compile Include="wrap_csharp32\SWIGTYPE_p___int64.cs" />
+    <Compile Include="wrap_csharp32\XsAccessControlMode.cs" />
+    <Compile Include="wrap_csharp32\XsAlignmentFrame.cs" />
+    <Compile Include="wrap_csharp32\XsAnalogInData.cs" />
+    <Compile Include="wrap_csharp32\XsArray.cs" />
+    <Compile Include="wrap_csharp32\XsAtomicInt.cs" />
+    <Compile Include="wrap_csharp32\XsBaudCode.cs" />
+    <Compile Include="wrap_csharp32\XsBaudRate.cs" />
+    <Compile Include="wrap_csharp32\XsBoolean.cs" />
+    <Compile Include="wrap_csharp32\XsByteArray.cs" />
+    <Compile Include="wrap_csharp32\XsByteArrayImpl.cs" />
+    <Compile Include="wrap_csharp32\XsCalibratedData.cs" />
+    <Compile Include="wrap_csharp32\XsCalibratedDataMode.cs" />
+    <Compile Include="wrap_csharp32\XsCallback.cs" />
+    <Compile Include="wrap_csharp32\XsCallbackPlainC.cs" />
+    <Compile Include="wrap_csharp32\XsComCallbackOptions.cs" />
+    <Compile Include="wrap_csharp32\XsConnectivityState.cs" />
+    <Compile Include="wrap_csharp32\XsControl.cs" />
+    <Compile Include="wrap_csharp32\XsControlLine.cs" />
+    <Compile Include="wrap_csharp32\XsCoordinateSystem.cs" />
+    <Compile Include="wrap_csharp32\XsDataFlags.cs" />
+    <Compile Include="wrap_csharp32\XsDataFormat.cs" />
+    <Compile Include="wrap_csharp32\XsDataIdentifier.cs" />
+    <Compile Include="wrap_csharp32\XsDataPacket.cs" />
+    <Compile Include="wrap_csharp32\XsDevice.cs" />
+    <Compile Include="wrap_csharp32\XsDeviceConfiguration.cs" />
+    <Compile Include="wrap_csharp32\XsDeviceConfigurationException.cs" />
+    <Compile Include="wrap_csharp32\XsDeviceErrorType.cs" />
+    <Compile Include="wrap_csharp32\XsDeviceId.cs" />
+    <Compile Include="wrap_csharp32\XsDeviceIdArray.cs" />
+    <Compile Include="wrap_csharp32\XsDeviceIdArrayImpl.cs" />
+    <Compile Include="wrap_csharp32\XsDeviceMode.cs" />
+    <Compile Include="wrap_csharp32\XsDeviceModePS.cs" />
+    <Compile Include="wrap_csharp32\XsDeviceModeR.cs" />
+    <Compile Include="wrap_csharp32\XsDeviceOptionFlag.cs" />
+    <Compile Include="wrap_csharp32\XsDevicePtrArray.cs" />
+    <Compile Include="wrap_csharp32\XsDevicePtrArrayImpl.cs" />
+    <Compile Include="wrap_csharp32\XsDeviceRef.cs" />
+    <Compile Include="wrap_csharp32\XsDeviceState.cs" />
+    <Compile Include="wrap_csharp32\xsensdeviceapi.cs" />
+    <Compile Include="wrap_csharp32\xsensdeviceapiPINVOKE.cs" />
+    <Compile Include="wrap_csharp32\XsErrorMode.cs" />
+    <Compile Include="wrap_csharp32\XsEuler.cs" />
+    <Compile Include="wrap_csharp32\XsException.cs" />
+    <Compile Include="wrap_csharp32\XsFile.cs" />
+    <Compile Include="wrap_csharp32\XsFilterProfile.cs" />
+    <Compile Include="wrap_csharp32\XsFilterProfileArray.cs" />
+    <Compile Include="wrap_csharp32\XsFilterProfileArrayImpl.cs" />
+    <Compile Include="wrap_csharp32\XsFloatFormat.cs" />
+    <Compile Include="wrap_csharp32\XsGpsPvtData.cs" />
+    <Compile Include="wrap_csharp32\XsInfoRequest.cs" />
+    <Compile Include="wrap_csharp32\XsInt64Array.cs" />
+    <Compile Include="wrap_csharp32\XsInt64ArrayImpl.cs" />
+    <Compile Include="wrap_csharp32\XsIntArray.cs" />
+    <Compile Include="wrap_csharp32\XsIntArrayImpl.cs" />
+    <Compile Include="wrap_csharp32\XsLibraryLoader.cs" />
+    <Compile Include="wrap_csharp32\XsMasterDeviceConfiguration.cs" />
+    <Compile Include="wrap_csharp32\XsMatrix.cs" />
+    <Compile Include="wrap_csharp32\XsMatrix3x3.cs" />
+    <Compile Include="wrap_csharp32\XsMessage.cs" />
+    <Compile Include="wrap_csharp32\XsMessageArray.cs" />
+    <Compile Include="wrap_csharp32\XsMessageArrayImpl.cs" />
+    <Compile Include="wrap_csharp32\XsMessageHeader.cs" />
+    <Compile Include="wrap_csharp32\XsMtDeviceConfiguration.cs" />
+    <Compile Include="wrap_csharp32\XsMutex.cs" />
+    <Compile Include="wrap_csharp32\XsMutexLocker.cs" />
+    <Compile Include="wrap_csharp32\XsNetworkScanner.cs" />
+    <Compile Include="wrap_csharp32\XsNmeaStringType.cs" />
+    <Compile Include="wrap_csharp32\XsOption.cs" />
+    <Compile Include="wrap_csharp32\XsOrientationMode.cs" />
+    <Compile Include="wrap_csharp32\XsOutputConfiguration.cs" />
+    <Compile Include="wrap_csharp32\XsOutputConfigurationArray.cs" />
+    <Compile Include="wrap_csharp32\XsOutputConfigurationArrayImpl.cs" />
+    <Compile Include="wrap_csharp32\XsOutputMode.cs" />
+    <Compile Include="wrap_csharp32\XsOutputSettings.cs" />
+    <Compile Include="wrap_csharp32\XsPortInfo.cs" />
+    <Compile Include="wrap_csharp32\XsPortInfoArray.cs" />
+    <Compile Include="wrap_csharp32\XsPortInfoArrayImpl.cs" />
+    <Compile Include="wrap_csharp32\XsPortLinesOptions.cs" />
+    <Compile Include="wrap_csharp32\XsPressure.cs" />
+    <Compile Include="wrap_csharp32\XsProcessingFlag.cs" />
+    <Compile Include="wrap_csharp32\XsProtocolType.cs" />
+    <Compile Include="wrap_csharp32\XsQuaternion.cs" />
+    <Compile Include="wrap_csharp32\XsRange.cs" />
+    <Compile Include="wrap_csharp32\XsRawGnssPvtData.cs" />
+    <Compile Include="wrap_csharp32\XsRawGnssSatInfo.cs" />
+    <Compile Include="wrap_csharp32\XsRawGpsDop.cs" />
+    <Compile Include="wrap_csharp32\XsRawGpsSol.cs" />
+    <Compile Include="wrap_csharp32\XsRawGpsSvInfo.cs" />
+    <Compile Include="wrap_csharp32\XsRawGpsTimeUtc.cs" />
+    <Compile Include="wrap_csharp32\XsRejectReason.cs" />
+    <Compile Include="wrap_csharp32\XsResetMethod.cs" />
+    <Compile Include="wrap_csharp32\XsResultValue.cs" />
+    <Compile Include="wrap_csharp32\XsSatInfo.cs" />
+    <Compile Include="wrap_csharp32\XsSatInfoFlags.cs" />
+    <Compile Include="wrap_csharp32\XsScanner.cs" />
+    <Compile Include="wrap_csharp32\XsScrData.cs" />
+    <Compile Include="wrap_csharp32\XsSdiData.cs" />
+    <Compile Include="wrap_csharp32\XsSelfTestFlag.cs" />
+    <Compile Include="wrap_csharp32\XsSelfTestResult.cs" />
+    <Compile Include="wrap_csharp32\XsSimpleVersion.cs" />
+    <Compile Include="wrap_csharp32\XsSnapshot.cs" />
+    <Compile Include="wrap_csharp32\XsSocket.cs" />
+    <Compile Include="wrap_csharp32\XsSocketOption.cs" />
+    <Compile Include="wrap_csharp32\XsStatusFlag.cs" />
+    <Compile Include="wrap_csharp32\XsStatusFlagOffset.cs" />
+    <Compile Include="wrap_csharp32\XsString.cs" />
+    <Compile Include="wrap_csharp32\XsStringArray.cs" />
+    <Compile Include="wrap_csharp32\XsStringArrayImpl.cs" />
+    <Compile Include="wrap_csharp32\XsStringImpl.cs" />
+    <Compile Include="wrap_csharp32\XsSvInfo.cs" />
+    <Compile Include="wrap_csharp32\XsSyncFunction.cs" />
+    <Compile Include="wrap_csharp32\XsSyncLine.cs" />
+    <Compile Include="wrap_csharp32\XsSyncPolarity.cs" />
+    <Compile Include="wrap_csharp32\XsSyncRole.cs" />
+    <Compile Include="wrap_csharp32\XsSyncSetting.cs" />
+    <Compile Include="wrap_csharp32\XsSyncSettingArray.cs" />
+    <Compile Include="wrap_csharp32\XsSyncSettingArrayImpl.cs" />
+    <Compile Include="wrap_csharp32\XsThreadPriority.cs" />
+    <Compile Include="wrap_csharp32\XsTimeStamp.cs" />
+    <Compile Include="wrap_csharp32\XsTriggerIndicationData.cs" />
+    <Compile Include="wrap_csharp32\XsUsbHubInfo.cs" />
+    <Compile Include="wrap_csharp32\XsUShortVector.cs" />
+    <Compile Include="wrap_csharp32\XsUtcTime.cs" />
+    <Compile Include="wrap_csharp32\XsVector.cs" />
+    <Compile Include="wrap_csharp32\XsVector3.cs" />
+    <Compile Include="wrap_csharp32\XsVersion.cs" />
+    <Compile Include="wrap_csharp32\XsXbusMessageId.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="xsensdeviceapi32.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="xsensdeviceapi_csharp32.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="xstypes32.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libCommon\libCommon.csproj">
+      <Project>{e27098ae-8470-40bb-bfcd-733c0d829bfb}</Project>
+      <Name>libCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LuaInterface-2.0.4\Core\LuaInterface\LuaInterface.csproj">
+      <Project>{f55cabbb-4108-4a39-94e1-581fd46dc021}</Project>
+      <Name>LuaInterface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Example_mtix_mk4.resx">
+      <DependentUpon>Example_mtix_mk4.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Script\Senxda.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

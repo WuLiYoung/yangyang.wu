@@ -1,0 +1,8 @@
+obj
+*.user
+Debug
+/testmanager/DataLogger/obj/Debug/DataLogger.csproj.FileListAbsolute.txt
+/testmanager/DataLogger/obj/Debug/DataLogger.csprojResolveAssemblyReference.cache
+/testmanager/DataLogger/obj/Debug/DataLogger.dll
+/testmanager/DataLogger/obj/Debug/DataLogger.pdb
+/testmanager/DataLogger/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache

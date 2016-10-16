@@ -1,0 +1,245 @@
+<?xml version="1.0"?>
+<SerializableDictionaryOfStringObject>
+  <SerializableDictionary>
+    <key>
+      <string>kUUTEnable0</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:boolean" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">true</anyType>
+    </value>
+    <key>
+      <string>kUUTEnable1</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:boolean" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">true</anyType>
+    </value>
+    <key>
+      <string>kUUTEnable2</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:boolean" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">true</anyType>
+    </value>
+    <key>
+      <string>kUUTEnable3</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:boolean" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">true</anyType>
+    </value>
+    <key>
+      <string>kUUTEnable4</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:boolean" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">true</anyType>
+    </value>
+    <key>
+      <string>kUUTEnable5</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:boolean" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">true</anyType>
+    </value>
+    <key>
+      <string>LogDir</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">C:\work</anyType>
+    </value>
+    <key>
+      <string>StationName</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">Unknown Station</anyType>
+    </value>
+    <key>
+      <string>LineName</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">Unknown Line</anyType>
+    </value>
+    <key>
+      <string>profile_path</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">C:\project\mkone_windowspro\TestManager\Output\bin\Debug\Profile\MKone_Test_V1.6.lua</anyType>
+    </value>
+    <key>
+      <string>TestFlowPath</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">C:\project\mkone_windowspro\TestManager\Output\bin\Debug\CVS</anyType>
+    </value>
+    <key>
+      <string>MCUConfig</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">115200,N,8,1</anyType>
+    </value>
+    <key>
+      <string>ScanBarCode?</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:int" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">0</anyType>
+    </value>
+    <key>
+      <string>CUSTOMER</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">admin</anyType>
+    </value>
+    <key>
+      <string>ArmCom1</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">COM33</anyType>
+    </value>
+    <key>
+      <string>ArmCom2</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">COM34</anyType>
+    </value>
+    <key>
+      <string>ArmCom3</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">COM35</anyType>
+    </value>
+    <key>
+      <string>ArmCom4</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">COM36</anyType>
+    </value>
+    <key>
+      <string>ArmCom5</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">COM37</anyType>
+    </value>
+    <key>
+      <string>ArmCom6</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">COM38</anyType>
+    </value>
+    <key>
+      <string>Arm1Config</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">115200,N,8,1</anyType>
+    </value>
+    <key>
+      <string>Arm2Config</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">115200,N,8,1</anyType>
+    </value>
+    <key>
+      <string>Arm3Config</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">115200,N,8,1</anyType>
+    </value>
+    <key>
+      <string>Arm4Config</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">115200,N,8,1</anyType>
+    </value>
+    <key>
+      <string>Arm5Config</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">115200,N,8,1</anyType>
+    </value>
+    <key>
+      <string>Arm6Config</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">115200,N,8,1</anyType>
+    </value>
+    <key>
+      <string>DUTCom1</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">COM43</anyType>
+    </value>
+    <key>
+      <string>DUTCom2</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">COM44</anyType>
+    </value>
+    <key>
+      <string>DUTCom3</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">COM41</anyType>
+    </value>
+    <key>
+      <string>DUTCom4</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">COM42</anyType>
+    </value>
+    <key>
+      <string>DUTCom5</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">COM49</anyType>
+    </value>
+    <key>
+      <string>DUTCom6</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">COM46</anyType>
+    </value>
+    <key>
+      <string>DUT1Config</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">38400,N,8,1</anyType>
+    </value>
+    <key>
+      <string>DUT2Config</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">38400,N,8,1</anyType>
+    </value>
+    <key>
+      <string>DUT3Config</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">38400,N,8,1</anyType>
+    </value>
+    <key>
+      <string>DUT4Config</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">38400,N,8,1</anyType>
+    </value>
+    <key>
+      <string>DUT5Config</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">38400,N,8,1</anyType>
+    </value>
+    <key>
+      <string>DUT6Config</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">38400,N,8,1</anyType>
+    </value>
+    <key>
+      <string>STARTTESTTM</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">2015/09/02_11:11:43</anyType>
+    </value>
+    <key>
+      <string>MCUCOM</string>
+    </key>
+    <value>
+      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d4p1:type="q1:string" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance">COM45</anyType>
+    </value>
+  </SerializableDictionary>
+</SerializableDictionaryOfStringObject>

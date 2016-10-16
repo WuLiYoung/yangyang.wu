@@ -1,0 +1,12 @@
+Applying system reset.
+Erasing all flash (code region 0, code region 1 and UICR).
+Applying system reset.
+Parsing hex file(s).
+Checking that there is no data to be written in region 0.
+Checking that there are no UICR conflicts.
+Checking that the area to download is erased, and erasing if necessary.
+Programming.
+Writing address 0x10001014.
+Verifying address 0x10001014.
+Verify OK.
+Applying system reset.

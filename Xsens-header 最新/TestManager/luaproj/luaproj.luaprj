@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<Project Name="luaproj.luaprj" >
+    <LuaFile RelativePath=".\..\Engine\Script\Execute.lua" />
+    <LuaFile RelativePath=".\..\DataLogger\Script\Logger.lua" />
+    <LuaFile RelativePath=".\..\UserInterface_X2\Script\ui.lua" />
+    <LuaFile RelativePath=".\..\Global\Script\Global.lua" />
+    <LuaFile RelativePath=".\..\Output\bin\Debug\Profile\Glass_Alsar_test.lua" />
+    <LuaFile RelativePath=".\..\EEBoradController\Script\EEBroadController.lua" />
+    <LuaFile RelativePath=".\..\LuxMeter\Script\LuxMeters.lua" />
+    <LuaFile RelativePath=".\..\Scanner\Script\Scanners.lua" />
+    <LuaFile RelativePath=".\..\LEDController\Script\LEDControllers.lua" />
+    <LuaFile RelativePath=".\..\Output\bin\Debug\Profile\Glass_Alsar_Calibration_Left.lua" />
+    <LuaFile RelativePath=".\..\Output\bin\Debug\Profile\Glass_Alsar_Calibration_Right.lua" />
+    <LuaFile RelativePath=".\..\Output\bin\Debug\Profile\Glass_Alsar_Calibration_Left2.lua" />
+    <LuaFile RelativePath=".\..\Output\bin\Debug\Profile\Glass_Alsar_Calibration_Right2.lua" />
+    <LuaFile RelativePath=".\..\RLEDController\Script\RLEDControllers.lua" />
+    <LuaFile RelativePath=".\..\lightSensor\Script\lightSensors.lua" />
+    <LuaFile RelativePath=".\..\lightSensorR\Script\lightSensorRs.lua" />
+    <LuaFile RelativePath=".\..\Output\bin\Debug\Profile\Calib_by_Sensor_1.lua" />
+    <LuaFile RelativePath=".\..\Output\bin\Debug\Profile\Calib_by_Sensor_2.lua" />
+    <LuaFile RelativePath=".\..\Output\bin\Debug\Profile\test Sensor 1.lua" />
+    <LuaFile RelativePath=".\..\Output\bin\Debug\Profile\test Sensor 2.lua" />
+</Project>
