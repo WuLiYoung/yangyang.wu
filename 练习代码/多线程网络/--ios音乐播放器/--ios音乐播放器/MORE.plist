@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>type</key>
+		<string>歌单</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>个性推荐</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>我的MV</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>主播电台</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>最近播放</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>关注</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>附近</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>每日推荐</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>私人FM</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>排行榜</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>分享</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>设置</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>主题皮肤</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>原创音乐</string>
+	</dict>
+</array>
+</plist>

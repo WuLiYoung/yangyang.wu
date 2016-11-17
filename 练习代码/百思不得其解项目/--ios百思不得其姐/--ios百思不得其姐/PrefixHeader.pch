@@ -1,0 +1,27 @@
+//
+//  PrefixHeader.pch
+//  --ios百思不得其姐
+//
+//  Created by 吴洋洋 on 16/3/30.
+//  Copyright © 2016年 吴洋洋. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import "UIView+CHExtens.h"
+#import "UIBarButtonItem+CHExtens.h"
+#define CHRGBColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+
+#ifdef DEBUG
+
+#define CHLog(...) NSLog(__VA_ARGS__)
+
+#else
+
+#define CHLog(... )
+
+#endif
+
+
+#endif /* PrefixHeader_pch */

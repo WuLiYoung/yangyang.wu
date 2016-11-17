@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CHPlayerToolbar">
+            <rect key="frame" x="0.0" y="0.0" width="328" height="90"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play_bar_bg2" id="3Fx-H8-xyf">
+                    <rect key="frame" x="0.0" y="26" width="423" height="64"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="RId-sB-imV">
+                    <rect key="frame" x="5" y="29" width="50" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jRB-Qc-iOY">
+                    <rect key="frame" x="63" y="36" width="95" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bWk-dE-bkY">
+                    <rect key="frame" x="63" y="56" width="100" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7Bn-Th-8pc">
+                    <rect key="frame" x="220" y="32" width="46" height="46"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" backgroundImage="playbar_playbtn_nomal"/>
+                    <state key="highlighted" backgroundImage="playbar_playbtn_click"/>
+                    <connections>
+                        <action selector="playBtnClicl:" destination="iN0-l3-epB" eventType="touchUpInside" id="d1O-LU-TyQ"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="EXG-uo-4Lv">
+                    <rect key="frame" x="171" y="32" width="46" height="46"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" backgroundImage="playbar_prebtn_nomal"/>
+                    <state key="highlighted" backgroundImage="playbar_prebtn_click"/>
+                    <connections>
+                        <action selector="preBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="tnm-Fj-MNm"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ooH-Qv-19i">
+                    <rect key="frame" x="269" y="32" width="46" height="46"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" backgroundImage="playbar_nextbtn_nomal"/>
+                    <state key="highlighted" backgroundImage="playbar_nextbtn_click"/>
+                    <connections>
+                        <action selector="nextClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="DIH-bM-biw"/>
+                    </connections>
+                </button>
+                <view alpha="0.59999999999999998" contentMode="scaleToFill" id="p21-pl-xbM">
+                    <rect key="frame" x="0.0" y="0.0" width="328" height="28"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wXy-xA-yYo">
+                            <rect key="frame" x="5" y="4" width="46" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1fq-ah-Zoa">
+                            <rect key="frame" x="277" y="4" width="46" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="9xK-RC-IlJ">
+                            <rect key="frame" x="45" y="0.0" width="226" height="31"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <connections>
+                                <action selector="rePlay:" destination="iN0-l3-epB" eventType="touchUpOutside" id="MPF-ZY-Y8s"/>
+                                <action selector="rePlay:" destination="iN0-l3-epB" eventType="touchUpInside" id="clq-22-ppK"/>
+                                <action selector="sliderChange:" destination="iN0-l3-epB" eventType="valueChanged" id="fN3-Tl-S9L"/>
+                                <action selector="stopPlay:" destination="iN0-l3-epB" eventType="touchDown" id="kBq-LU-6AJ"/>
+                            </connections>
+                        </slider>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="currentTime" destination="wXy-xA-yYo" id="7mp-in-MRh"/>
+                <outlet property="musicName" destination="jRB-Qc-iOY" id="rjU-bW-9ll"/>
+                <outlet property="singerName" destination="bWk-dE-bkY" id="bQM-fo-ygt"/>
+                <outlet property="singericonView" destination="RId-sB-imV" id="Wlw-11-9bE"/>
+                <outlet property="timeSlider" destination="9xK-RC-IlJ" id="mUP-x1-sqj"/>
+                <outlet property="totalTime" destination="1fq-ah-Zoa" id="2NN-Cx-NT5"/>
+            </connections>
+            <point key="canvasLocation" x="350" y="641"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="play_bar_bg2" width="242" height="97"/>
+        <image name="playbar_nextbtn_click" width="54" height="54"/>
+        <image name="playbar_nextbtn_nomal" width="54" height="54"/>
+        <image name="playbar_playbtn_click" width="80" height="80"/>
+        <image name="playbar_playbtn_nomal" width="80" height="80"/>
+        <image name="playbar_prebtn_click" width="54" height="54"/>
+        <image name="playbar_prebtn_nomal" width="54" height="54"/>
+    </resources>
+</document>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GuideViewController">
+            <connections>
+                <outlet property="_btn" destination="Zcc-R2-ibZ" id="ZYC-aE-iEw"/>
+                <outlet property="_scrollView" destination="2f1-Fw-QCL" id="8Vs-Fl-KoS"/>
+                <outlet property="view" destination="iN0-l3-epB" id="JIZ-zi-mrK"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2f1-Fw-QCL">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <animations/>
+                </scrollView>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zcc-R2-ibZ">
+                    <rect key="frame" x="16" y="442" width="288" height="51"/>
+                    <animations/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                    <state key="normal" title="点击开启">
+                        <color key="titleColor" red="0.58431375029999999" green="0.30196079609999998" blue="0.28627452250000002" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnAction:" destination="-1" eventType="touchUpInside" id="dqR-NS-FEW"/>
+                    </connections>
+                </button>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Zcc-R2-ibZ" secondAttribute="bottom" constant="75" id="9fV-56-dNC"/>
+                <constraint firstAttribute="trailing" secondItem="2f1-Fw-QCL" secondAttribute="trailing" id="E1H-xX-e8a"/>
+                <constraint firstItem="2f1-Fw-QCL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="TRs-Qx-gdy"/>
+                <constraint firstItem="2f1-Fw-QCL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="dah-E5-qcF"/>
+                <constraint firstItem="Zcc-R2-ibZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="hPg-bP-sgs"/>
+                <constraint firstItem="Zcc-R2-ibZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="442" id="lgP-bO-QcR"/>
+                <constraint firstAttribute="bottom" secondItem="2f1-Fw-QCL" secondAttribute="bottom" id="r3y-JY-qg2"/>
+                <constraint firstAttribute="trailing" secondItem="Zcc-R2-ibZ" secondAttribute="trailing" constant="16" id="t2W-sN-Vml"/>
+            </constraints>
+            <point key="canvasLocation" x="252" y="-4"/>
+        </view>
+    </objects>
+</document>

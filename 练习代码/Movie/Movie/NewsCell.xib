@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="90" id="hSv-0m-ibp" customClass="NewsCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hSv-0m-ibp" id="ZtL-e9-M5p">
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="H4K-2l-k2p">
+                        <rect key="frame" x="4" y="5" width="80" height="80"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="98s-Nq-Jdk"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="poa-6Z-Uph">
+                        <rect key="frame" x="92" y="59" width="15" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="15" id="RAK-1D-EeU"/>
+                            <constraint firstAttribute="height" constant="15" id="wF5-FK-ieV"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQw-Y8-Jl4">
+                        <rect key="frame" x="115" y="57" width="186" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RAQ-IC-yAo">
+                        <rect key="frame" x="115" y="14" width="186" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="poa-6Z-Uph" firstAttribute="bottom" secondItem="gQw-Y8-Jl4" secondAttribute="bottom" id="1Ba-iC-7LX"/>
+                    <constraint firstItem="RAQ-IC-yAo" firstAttribute="leading" secondItem="H4K-2l-k2p" secondAttribute="trailing" constant="31" id="2jb-FR-SLQ"/>
+                    <constraint firstAttribute="trailing" secondItem="RAQ-IC-yAo" secondAttribute="trailing" constant="19" id="9Ab-EF-UKU"/>
+                    <constraint firstItem="gQw-Y8-Jl4" firstAttribute="top" secondItem="RAQ-IC-yAo" secondAttribute="bottom" constant="25" id="Bhe-C3-yfO"/>
+                    <constraint firstItem="poa-6Z-Uph" firstAttribute="leading" secondItem="H4K-2l-k2p" secondAttribute="trailing" constant="8" id="CjH-Hu-o7p"/>
+                    <constraint firstItem="H4K-2l-k2p" firstAttribute="top" secondItem="ZtL-e9-M5p" secondAttribute="topMargin" constant="-3" id="ILi-AT-cF4"/>
+                    <constraint firstItem="RAQ-IC-yAo" firstAttribute="leading" secondItem="gQw-Y8-Jl4" secondAttribute="leading" id="KyH-O9-heR"/>
+                    <constraint firstItem="RAQ-IC-yAo" firstAttribute="trailing" secondItem="gQw-Y8-Jl4" secondAttribute="trailing" id="Vz3-TV-uJm"/>
+                    <constraint firstItem="H4K-2l-k2p" firstAttribute="leading" secondItem="ZtL-e9-M5p" secondAttribute="leadingMargin" constant="-4" id="bl1-4k-bs7"/>
+                    <constraint firstItem="RAQ-IC-yAo" firstAttribute="top" secondItem="ZtL-e9-M5p" secondAttribute="top" constant="14" id="djQ-ms-jBJ"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="H4K-2l-k2p" secondAttribute="bottom" constant="-4" id="txv-xC-GUH"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="newsImage" destination="H4K-2l-k2p" id="tJ6-UT-LVl"/>
+                <outlet property="newsTitle" destination="RAQ-IC-yAo" id="I2i-JL-gEN"/>
+                <outlet property="summryLable" destination="gQw-Y8-Jl4" id="pJW-Yz-TmP"/>
+                <outlet property="typeImage" destination="poa-6Z-Uph" id="dek-8f-s7J"/>
+            </connections>
+            <point key="canvasLocation" x="393" y="141"/>
+        </tableViewCell>
+    </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

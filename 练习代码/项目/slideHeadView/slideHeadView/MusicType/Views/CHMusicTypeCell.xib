@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="150" id="KGk-i7-Jjw" customClass="CHMusicTypeCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="147"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="146.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c9L-5w-o1u">
+                        <rect key="frame" x="10" y="10" width="356" height="128"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="128" id="F7J-Gt-hoL"/>
+                            <constraint firstAttribute="width" constant="356" id="ktb-rQ-zA8"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="经典老歌" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvj-NU-A0J">
+                        <rect key="frame" x="16" y="102" width="70" height="37"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="37" id="Qhf-og-Jol"/>
+                            <constraint firstAttribute="width" constant="70" id="y62-Il-8xo"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="c9L-5w-o1u" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="BBM-5p-SJf"/>
+                    <constraint firstAttribute="trailing" secondItem="c9L-5w-o1u" secondAttribute="trailing" constant="9" id="BU5-Sa-u2D"/>
+                    <constraint firstItem="yvj-NU-A0J" firstAttribute="bottom" secondItem="c9L-5w-o1u" secondAttribute="bottom" constant="1" id="Do1-Bb-uR4"/>
+                    <constraint firstItem="c9L-5w-o1u" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Lra-PW-TxB"/>
+                    <constraint firstItem="c9L-5w-o1u" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="aJr-pL-jdB"/>
+                    <constraint firstAttribute="bottom" secondItem="c9L-5w-o1u" secondAttribute="bottom" constant="8.5" id="efJ-lu-rqB"/>
+                    <constraint firstItem="yvj-NU-A0J" firstAttribute="leading" secondItem="c9L-5w-o1u" secondAttribute="leading" constant="6" id="uW3-Rf-Hjf"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="musicTypeImage" destination="c9L-5w-o1u" id="yCD-HH-ig3"/>
+                <outlet property="musicTypeName" destination="yvj-NU-A0J" id="obI-J6-BBP"/>
+            </connections>
+            <point key="canvasLocation" x="152.5" y="-107.5"/>
+        </tableViewCell>
+    </objects>
+</document>

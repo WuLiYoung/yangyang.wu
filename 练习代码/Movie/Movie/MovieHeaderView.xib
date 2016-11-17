@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MovieHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U1Q-dJ-dFi">
+                    <rect key="frame" x="8" y="13" width="92" height="130"/>
+                    <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="92" id="VXs-m5-8I1"/>
+                        <constraint firstAttribute="height" constant="130" id="xBP-W6-3CC"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GG3-ae-r4c">
+                    <rect key="frame" x="117" y="10" width="189" height="24"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                    <color key="textColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcV-s3-Mw0">
+                    <rect key="frame" x="117" y="42" width="189" height="18"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tBd-9a-7lu">
+                    <rect key="frame" x="117" y="68" width="189" height="18"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qXH-YP-GU4">
+                    <rect key="frame" x="117" y="94" width="189" height="18"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vxr-X3-4ck">
+                    <rect key="frame" x="117" y="122" width="189" height="18"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B9y-7B-Rs4">
+                    <rect key="frame" x="8" y="152" width="304" height="70"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="70" id="o30-fj-5jo"/>
+                    </constraints>
+                </scrollView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GwT-Dv-HTU">
+                    <rect key="frame" x="22" y="28" width="64" height="103"/>
+                    <state key="normal" image="playButton.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="playActin:" destination="iN0-l3-epB" eventType="touchUpInside" id="A77-Mc-3WH"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="tBd-9a-7lu" firstAttribute="top" secondItem="wcV-s3-Mw0" secondAttribute="bottom" constant="8" id="6iu-im-yd7"/>
+                <constraint firstItem="wcV-s3-Mw0" firstAttribute="top" secondItem="GG3-ae-r4c" secondAttribute="bottom" constant="8" id="89E-9L-Gw4"/>
+                <constraint firstItem="GG3-ae-r4c" firstAttribute="leading" secondItem="U1Q-dJ-dFi" secondAttribute="trailing" constant="17" id="Cqb-aI-BYC"/>
+                <constraint firstAttribute="trailing" secondItem="B9y-7B-Rs4" secondAttribute="trailing" constant="8" id="Kr3-yR-SZf"/>
+                <constraint firstItem="U1Q-dJ-dFi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="MU6-cl-XfT"/>
+                <constraint firstItem="Vxr-X3-4ck" firstAttribute="top" secondItem="qXH-YP-GU4" secondAttribute="bottom" constant="10" id="RCV-Jh-1vo"/>
+                <constraint firstItem="U1Q-dJ-dFi" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="13" id="RPG-rz-eXW"/>
+                <constraint firstItem="qXH-YP-GU4" firstAttribute="width" secondItem="Vxr-X3-4ck" secondAttribute="width" id="Rsa-Ly-uKC"/>
+                <constraint firstItem="qXH-YP-GU4" firstAttribute="top" secondItem="tBd-9a-7lu" secondAttribute="bottom" constant="8" id="SC7-bU-2ke"/>
+                <constraint firstItem="tBd-9a-7lu" firstAttribute="width" secondItem="wcV-s3-Mw0" secondAttribute="width" id="XW1-zz-NMl"/>
+                <constraint firstItem="tBd-9a-7lu" firstAttribute="leading" secondItem="qXH-YP-GU4" secondAttribute="leading" id="Z63-0C-9PJ"/>
+                <constraint firstItem="GG3-ae-r4c" firstAttribute="leading" secondItem="wcV-s3-Mw0" secondAttribute="leading" id="ZU2-jt-0Hp"/>
+                <constraint firstItem="tBd-9a-7lu" firstAttribute="width" secondItem="qXH-YP-GU4" secondAttribute="width" id="epL-Ec-dz7"/>
+                <constraint firstAttribute="bottom" secondItem="B9y-7B-Rs4" secondAttribute="bottom" constant="8" id="fOW-XI-YlL"/>
+                <constraint firstItem="GG3-ae-r4c" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="gZd-Gm-LRX"/>
+                <constraint firstAttribute="trailing" secondItem="GG3-ae-r4c" secondAttribute="trailing" constant="14" id="ghW-Uj-qhY"/>
+                <constraint firstItem="tBd-9a-7lu" firstAttribute="leading" secondItem="wcV-s3-Mw0" secondAttribute="leading" id="igH-fN-M0z"/>
+                <constraint firstItem="qXH-YP-GU4" firstAttribute="leading" secondItem="Vxr-X3-4ck" secondAttribute="leading" id="krk-WU-pek"/>
+                <constraint firstItem="GG3-ae-r4c" firstAttribute="width" secondItem="wcV-s3-Mw0" secondAttribute="width" id="lZF-Vf-QMg"/>
+                <constraint firstItem="B9y-7B-Rs4" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="vSC-Ex-ama"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="actorLable" destination="tBd-9a-7lu" id="0by-IY-Q2C"/>
+                <outlet property="directorLable" destination="wcV-s3-Mw0" id="j6S-Zp-fUp"/>
+                <outlet property="movieImage" destination="U1Q-dJ-dFi" id="DLX-1F-fdd"/>
+                <outlet property="movieTitle" destination="GG3-ae-r4c" id="V3b-zc-wsS"/>
+                <outlet property="scrollView" destination="B9y-7B-Rs4" id="aoh-p7-eeN"/>
+                <outlet property="typeLable" destination="qXH-YP-GU4" id="Y64-MB-ybU"/>
+                <outlet property="yearLable" destination="Vxr-X3-4ck" id="TWI-pk-ZQs"/>
+            </connections>
+            <point key="canvasLocation" x="914" y="173"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="playButton.png" width="58" height="57"/>
+    </resources>
+</document>
