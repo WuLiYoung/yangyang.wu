@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>url</key>
+		<string>/Users/wuyangyang/Desktop/练习代码/多线程网络/--ios音乐播放器/--ios音乐播放器/MP3/Let It Go.mp3</string>
+		<key>songName</key>
+		<string>Let It Go</string>
+		<key>filename</key>
+		<string>Let It Go.mp3</string>
+		<key>singer</key>
+		<string>黛米·洛瓦托，伊迪娜·门泽尔</string>
+		<key>singerIcon</key>
+		<string>let it go.png</string>
+		<key>icon</key>
+		<string>let it go.png</string>
+	</dict>
+	<dict>
+		<key>url</key>
+		<string>/Users/wuyangyang/Desktop/练习代码/多线程网络/--ios音乐播放器/--ios音乐播放器/MP3/小苹果.mp3</string>
+		<key>songName</key>
+		<string>小苹果</string>
+		<key>filename</key>
+		<string>小苹果.mp3</string>
+		<key>singer</key>
+		<string>筷子兄弟</string>
+		<key>singerIcon</key>
+		<string>kzxd_100.png</string>
+		<key>icon</key>
+		<string>kzxd_400.png</string>
+	</dict>
+	<dict>
+		<key>url</key>
+		<string>/Users/wuyangyang/Desktop/练习代码/多线程网络/--ios音乐播放器/--ios音乐播放器/MP3/泡沫.mp3</string>
+		<key>songName</key>
+		<string>泡沫</string>
+		<key>filename</key>
+		<string>泡沫.mp3</string>
+		<key>singer</key>
+		<string>邓紫琪G.E.M</string>
+		<key>singerIcon</key>
+		<string>gem_100.png</string>
+		<key>icon</key>
+		<string>gem_400.png</string>
+	</dict>
+	<dict>
+		<key>url</key>
+		<string>/Users/wuyangyang/Desktop/练习代码/多线程网络/--ios音乐播放器/--ios音乐播放器/MP3/爸爸去哪儿.mp3</string>
+		<key>songName</key>
+		<string>爸爸去哪儿</string>
+		<key>filename</key>
+		<string>爸爸去哪儿.wav</string>
+		<key>singer</key>
+		<string>爸爸去哪儿第一季</string>
+		<key>singerIcon</key>
+		<string>bbqne_100.png</string>
+		<key>icon</key>
+		<string>bbqne_400.png</string>
+	</dict>
+	<dict>
+		<key>songName</key>
+		<string>许嵩,黄龄 - 惊鸿一面</string>
+		<key>url</key>
+		<string>/Users/wuyangyang/Desktop/练习代码/多线程网络/--ios音乐播放器/--ios音乐播放器/MP3/许嵩,黄龄 - 惊鸿一面.mp3</string>
+		<key>filename</key>
+		<string>许嵩,黄龄 - 惊鸿一面.mp3</string>
+		<key>singer</key>
+		<string>许嵩,黄龄 </string>
+		<key>singerIcon</key>
+		<string>xusong.png</string>
+		<key>icon</key>
+		<string>xusong.png</string>
+	</dict>
+	<dict>
+		<key>url</key>
+		<string>/Users/wuyangyang/Desktop/练习代码/多线程网络/--ios音乐播放器/--ios音乐播放器/MP3/薛之谦 - 绅士.mp3</string>
+		<key>songName</key>
+		<string>薛之谦 - 绅士</string>
+		<key>filename</key>
+		<string>薛之谦 - 绅士.m4a</string>
+		<key>singer</key>
+		<string>薛之谦 </string>
+		<key>singerIcon</key>
+		<string>aa.jpg</string>
+		<key>icon</key>
+		<string>aa.jpg</string>
+	</dict>
+</array>
+</plist>
