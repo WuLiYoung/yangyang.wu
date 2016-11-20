@@ -1,0 +1,886 @@
+---------------------------- Global Variable Start--------------------------
+--global variable defined below:
+
+---------------------------- Global Variable End--------------------------
+ConnectOK = false;
+CheckUUTOK = false;
+vTable = {};
+cTable = {};
+capsLocak = false;
+global_SN = nil;
+ProductPID = 0x277;
+TestVoltage1 = 0
+TestVoltage2 = 0
+TestCurrent = 0
+TP0201_V = nil
+KBType="ANSI"
+--KBType=CheckUSB:getKBType();
+--------------------Gerneral Function Start------------------------
+
+KB_TYPE =   {
+				ANSI = "ANSI",
+				ISO =  "ISO",
+				JIS = "JIS"
+			}
+
+ENUM_KEYBOARD_TYPE = {
+						   ANSI = 0 ,
+						   ISO = 1  ,
+						   JIS = 2  ,
+						   DEBUG = 3,
+						   DEFAULT = 4
+				     }
+Key_Name = {
+				ANSI  =	{
+						    --"Esc","F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12","Power",
+						    "Tilde","Num1","Num2","Num3","Num4","Num5","Num6","Num7","Num8","Num9","Num0","Minus","Equal","Delete",
+						    "Tab","Q","W","E","R","T","Y","U","I","O","P","LeftBracket","RightBracket","BackSlash",
+						    "CapsLock","A","S","D","F","G","H","J","K","L","Semicolon","Quote","Return",
+						    "LeftShift","Z","X","C","V","B","N","M","Comma","Period","Question","RightShift",
+						    "Fn","Control","LeftOption","LeftCommand","Space","RightCommand","RightOption","Left","Up","Down","Right" 
+				  		},  
+				ISO  =	{
+						    --"Esc","F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12","Power",
+						    "ISO","Num1","Num2","Num3","Num4","Num5","Num6","Num7","Num8","Num9","Num0","Minus","Equal","Delete",
+						    "Tab","Q","W","E","R","T","Y","U","I","O","P","LeftBracket","RightBracket","Return",
+						    "CapsLock","A","S","D","F","G","H","J","K","L","Semicolon","Quote","BackSlash",
+						    "LeftShift","Tilde","Z","X","C","V","B","N","M","Comma","Period","Question","RightShift",
+						    "Fn","Control","LeftOption","LeftCommand","Space","RightCommand","RightOption","Left","Up","Down","Right" 
+				  		},    
+				JIS  =	{
+						    --"Esc","F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12","Power",
+						    "Num1","Num2","Num3","Num4","Num5","Num6","Num7","Num8","Num9","Num0","Minus","Tilde","Yen","Delete",
+						    "Tab","Q","W","E","R","T","Y","U","I","O","P","At","LeftBracket","Return",
+						    "Control","A","S","D","F","G","H","J","K","L","Semicolon","Colon","RightBracket",
+						    "LeftShift","Z","X","C","V","B","N","M","Comma","Period","Question","Ro","RightShift",
+						    "CapsLock","LeftOption","LeftCommand","Eisu","Space","Kana","RightCommand","Fn","Left","Up","Down","Right" 
+				  		}
+            }
+
+--
+SC = {   -- It is possible to combine ANSI ISO JIS to one table ?
+        ANSI= {
+                  Esc=41,F1=58,F2=59,F3=60,F4=61,F5=62,F6=63,F7=64,F8=65,F9=66,F10=67,F11=68,F12=69,Power =1,
+                  Tilde=53,Num1=30,Num2=31,Num3=32,Num4=33,Num5=34,Num6=35,Num7=36,Num8=37,Num9=38,Num0=39,Minus=45,Equal=46,Delete=42,
+                  Tab=43,Q=20,W=26,E=8,R=21,T=23,Y=28,U=24,I=12,O=18,P=19,LeftBracket=47,RightBracket=48,BackSlash=49,
+                  CapsLock=57,A=4,S=22,D=7,F=9,G=10,H=11,J=13,K=14,L=15,Semicolon=51,Quote=52,Return=40,
+                  LeftShift=225,Z=29,X=27,C=6,V=25,B=5,N=17,M=16,Comma=54,Period=55,Question =56,RightShift=229,
+                  Fn=3,Control=224,LeftOption=226,LeftCommand=227,Space=44,RightCommand=231,RightOption=230,Left=80,Up=82,Down=81,Right=79 
+              }, 
+        ISO = {
+                  Esc=41,F1=58,F2=59,F3=60,F4=61,F5=62,F6=63,F7=64,F8=65,F9=66,F10=67,F11=68,F12=69,Power =1,
+                  ISO=100,Num1=30,Num2=31,Num3=32,Num4=33,Num5=34,Num6=35,Num7=36,Num8=37,Num9=38,Num0=39,Minus=45,Equal=46,Delete=42,
+                  Tab=43,Q=20,W=26,E=8,R=21,T=23,Y=28,U=24,I=12,O=18,P=19,LeftBracket=47,RightBracket=48,Return=40,
+                  CapsLock=57,A=4,S=22,D=7,F=9,G=10,H=11,J=13,K=14,L=15,Semicolon=51,Quote=52,BackSlash=49,
+                  LeftShift=225,Tilde=53,Z=29,X=27,C=6,V=25,B=5,N=17,M=16,Comma=54,Period=55,Question =56,RightShift=229,
+                  Fn=3,Control=224,LeftOption=226,LeftCommand=227,Space=44,RightCommand=231,RightOption=230,Left=80,Up=82,Down=81,Right=79
+              },
+        JIS = {
+        			-- need to be confirmed
+					--Esc=41,F1=58,F2=59,F3=60,F4=61,F5=62,F6=63,F7=64,F8=65,F9=66,F10=67,F11=68,F12=69,Power=1,
+					Num1=30,Num2=31,Num3=32,Num4=33,Num5=34,Num6=35,Num7=36,Num8=37,Num9=38,Num0=39,Minus=45,Tilde=46,Yen=137,Delete=42,
+					Tab=43,Q=20,W=26,E=8,R=21,T=23,Y=28,U=24,I=12,O=18,P=19,At=47,LeftBracket=48,Return=40,
+					Control=224,A=4,S=22,D=7,F=9,G=10,H=11,J=13,K=14,L=15,Semicolon=51,Colon=52,RightBracket=49,
+					LeftShift=225,Z=29,X=27,C=6,V=25,B=5,N=17,M=16,Comma=54,Period=55,Question=56,Ro=135,RightShift=229,
+					CapsLock=57,LeftOption=226,LeftCommand=227,Eisu=145,Space=44,Kana=144,RightCommand=231,Fn=3,Left=80,Up=82,Down=81,Right=79
+              }              
+      }
+
+TBL_KeyPress_Test_Sub_Special ={
+	ANSI = {
+				{name="Key_Tab",lower=2,upper=10,unit="",entry=ItemKeyPressTimes,parameter=43,sub=nil,skip=0,cof=0},
+		      	{name="Key_Q",lower=2,upper=10,unit="",entry=ItemKeyPressTimes,parameter=20,sub=nil,skip=0,cof=0}
+		   
+		   },
+	ISO =  {
+				{name="Key_Tab",lower=2,upper=10,unit="",entry=ItemKeyPressTimes,parameter=43,sub=nil,skip=0,cof=0}
+		   },
+	JIS =  {
+				{name="Key_Tab",lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=43,sub=nil,skip=0,cof=0}
+		   }
+}
+function Get_KeyPress_Test_Sub(pars_KB_Type)
+	local tbl_Test_Sub = { }
+	for i , v in ipairs(Key_Name[pars_KB_Type]) do
+		tbl_Test_Sub[#tbl_Test_Sub+1] = {
+		name = "Key_"..v,lower = 1, upper = 1 ,unit = "" ,entry = ItemKeyPressTimes , parameter = SC[pars_KB_Type][v],sub = nil ,skip = 0,cof = 0
+	}
+	end
+	--do with special items, just for flexibility
+	if(type(TBL_KeyPress_Test_Sub_Special[pars_KB_Type])=="table") then
+		local tbl_test_sub_spcl = TBL_KeyPress_Test_Sub_Special[pars_KB_Type];
+		-- local tbl_test_sub_spcl = Get_KeyPress_Test_Sub_Special["ANSI"];
+
+		for index, value in ipairs(tbl_test_sub_spcl) do
+			for i , v in ipairs(tbl_Test_Sub) do
+				if value.name == v.name then 	 -- if special value and normal value equal,change 
+					v.name = value.name;		 -- normal value to special value, need 
+					v.lower = value.lower;		 -- need a more simple way to do it 
+					v.upper = value.upper;
+					v.unit = value.unit;
+					-- important , do not assign value for function
+					-- v.entry = value.entry;
+					v.parameter = value.parameter
+					v.sub = value.sub;
+					v.skip = value.skip;
+					v.cof = value.cof;
+					-- MessageBox(  " v.name "..tostring(v.name)
+					-- 		   .." v.lower"..tostring(v.lower)
+					-- 		   .." v.upper"..tostring(v.upper)
+					-- 		   .." v.unit"..tostring(v.unit)
+					-- 		   .." v.entry"..tostring(v.entry)
+					-- 		   );
+				end
+			end
+		end
+	end
+
+
+
+	return tbl_Test_Sub;
+	-- the return table may look like as the following: 
+	--{name="Key_Wave",lower=1,upper=5,unit="",entry=KeyPressTimes,parameter=53,sub=nil,skip=0,cof=0},
+	-- . . . 
+	--{name="Key_R_Arrow",lower=1,upper=5,unit="",entry=KeyPressTimes,parameter=79,sub=nil,skip=0,cof=0},
+end 
+
+
+ANSI_LED_Table = {
+[20]="r1.1";[21]="r1.2";[22]="r1.3";[23]="r1.4";[24]="r1.5";[9]="r1.6";[10]="r1.7";[11]="r1.8";[12]="r1.9";[13]="r1.10";[14]="r1.11";[15]="r1.12";[16]="r1.13";[1]="r1.14left";[2]="r1.14right";
+[37]="r2.1left";[38]="r2.1right";[39]="r2.2";[40]="r2.3";[25]="r2.4";[26]="r2.5";[27]="r2.6";[28]="r2.7";[29]="r2.8";[30]="r2.9";[31]="r2.10";[32]="r2.11";[17]="r2.12";[18]="r2.13";[19]="r2.14";
+[36]="r3.1up";[52]="r3.1down";[53]="r3.1left";[54]="r3.1right";[55]="r3.2";[56]="r3.3";[41]="r3.4";[42]="r3.5";[43]="r3.6";[44]="r3.7";[45]="r3.8";[46]="r3.9";[47]="r3.10";[48]="r3.11";[33]="r3.12";[34]="r3.13left";[35]="r3.13right";
+[70]="r4.1left";[71]="r4.1right";[72]="r4.2";[57]="r4.3";[58]="r4.4";[59]="r4.5";[60]="r4.6";[61]="r4.7";[62]="r4.8";[63]="r4.9";[64]="r4.10";[49]="r4.11";[50]="r4.12";[51]="r4.13";
+[88]="r5.1";[73]="r5.2";[74]="r5.3";[75]="r5.4";[76]="r5.5left1";[77]="r5.5left2";[78]="r5.5right1";[79]="r5.5right2";[80]="r5.6";[65]="r5.7";[66]="r5.8";[67]="5.9down";[68]="r5.9up";[69]="r5.10";
+}
+
+JIS_LED_Table = {
+[20]="r1.1left";[21]="r1.1right";[22]="r1.2";[23]="r1.3";[24]="r1.4";[9]="r1.5";[10]="r1.6";[11]="r1.7";[12]="r1.8";[13]="r1.9";[14]="r1.10";[15]="r1.11";[16]="r1.12";[1]="r1.13";[2]="r1.14";
+[38]="r2.1";[39]="r2.2";[40]="r2.3";[25]="r2.4";[26]="r2.5";[27]="r2.6";[28]="r2.7";[29]="r2.8";[30]="r2.9";[31]="r2.10";[32]="r2.11";[17]="r2.12";[18]="r2.13";[19]="r2.14";
+[56]="r3.1";[41]="r3.2";[42]="r3.3";[43]="r3.4";[44]="r3.5";[45]="r3.6";[46]="r3.7";[47]="r3.8";[48]="r3.9";[33]="r3.10";[34]="r3.11";[35]="r3.12";[36]="r2.13";[37]="r2.14";
+[57]="r4.1left";[58]="r4.1right";[59]="r4.2";[60]="r4.3";[61]="r4.4";[62]="r4.5";[63]="r4.6";[64]="r4.7";[49]="r4.8";[50]="r4.9";[51]="r4.10";[52]="r4.11";[53]="r4.12";[54]="r4.13";[55]="r4.14";
+[74]="r5.1";[75]="r5.2";[76]="r5.3";[77]="r5.4";[78]="r5.5left1";[79]="r5.5left2";[80]="r5.5right1";[65]="r5.5right2";[66]="r5.6";[67]="r5.7";[68]="r5.8";[69]="r5.9";[70]="5.10down";[71]="r5.10up";[72]="r5.11";
+}
+
+
+
+
+
+
+--Initial function for startup test,you can add test initial code in here	
+function Test_OnEntry(par)
+	DbgOut("Test_OnEntry!");
+	local ret = pacsocket.CreateTCPClient("X530","192.168.1.32",7600);
+	if ret < 0 then
+		ConnectOK = false;
+		msgbox("PACSocket","Connect server error!",nil,nil,nil);
+	else
+		--PowerOn();
+		ConnectOK = true;
+	end
+end
+
+--Clear function for test failed,you can add clear function code in here when test failed.
+function Test_OnFail(par)	
+	DbgOut("Test_OnFail!");
+	local ret1 = pacsocket.TCPSendReceive("test FAIL",3000,"\n");
+	local ret2 = pacsocket.TCPSendReceive("testdone PASS",5000,"\n");
+	if (ret1 == nil) or (ret2 == nil) then
+		msgbox("PACSocket","Exit error!!!",nil,nil,nil);
+		return -1;
+	else 
+		if(#ret1 and #ret2) then
+			return 0;
+		else
+			msgbox("PACSocket","Exit error!!!",nil,nil,nil);
+			return -1;
+		end
+	end
+end
+
+--Clear function for normal test finish.you can add clear function code in there when test normally finish.
+function Test_OnDone(par)
+	DbgOut("Test_OnDone!");
+	local b=__getTestResult();
+	local ret1;
+	local ret2;
+	if ConnectOK == false then
+		return -1,"Connect err!"
+	end
+	if b == 1 then	
+		ret1 = pacsocket.TCPSendReceive("test PASS",3000,"\n");
+	else
+		ret1 = pacsocket.TCPSendReceive("test FAIL",3000,"\n");
+	end
+	ret2 = pacsocket.TCPSendReceive("testdone PASS",7000,"\n");
+	if (ret1 == nil) or (ret2 == nil) then
+		msgbox("PACSocket","Exit error!!!",nil,nil,nil);
+		return -1;
+	else 
+		if(#ret1 and #ret2) then
+			return 0;
+		else
+			msgbox("PACSocket","Exit error!!!",nil,nil,nil);
+			return -1;
+		end
+	end
+end
+
+function Test_OnAbort()
+	DbgOut("Test_OnAbort!");
+	local ret1 = pacsocket.TCPSendReceive("test FAIL",3000,"\n");
+	local ret2 = pacsocket.TCPSendReceive("testdone PASS",3000,"\n");
+	if (ret1 == nil) or (ret2 == nil) then
+		msgbox("PACSocket","Exit error!!!",nil,nil,nil);
+		return -1;
+	else 
+		if(#ret1 and #ret2) then
+			return 0;
+		else
+			msgbox("PACSocket","Exit error!!!",nil,nil,nil);
+			return -1;
+		end
+	end
+end
+
+--------------------Gerneral Function End------------------------
+
+--------------------Power Control Function Start--------------
+function PowerOn()
+	DbgOut("Power on!");
+end
+
+function PowerOff()
+	DbgOut("Power off!");
+end
+
+--------------------Power Control Function End--------------
+
+--------------------TestItem Function Start---------------
+--[[
+function GetBarcode()
+	if ConnectOK == false then
+		return -1,"Connect err!"
+	end
+	local ret = pacsocket.TCPSendReceive("barcode?",3000,"\n");
+
+	if(ret ~= nil) then
+		local lens = string.len(ret);
+		DbgOut(ret);
+		local WT=string.sub(ret,4,lens);
+		WT = string.gsub(WT,"\n","");
+		WT = string.gsub(WT,"\r","");
+		SetMlbSN(tonumber(tc.ID()),WT);
+		global_SN = WT;
+		return string.len(WT),WT;
+	else
+		msgbox("PACSocket","网络连接失败！请检查网络；".."\n".."如果找不到原因，请重启PAC后插拔Mac mini上的网线!",nil,nil,nil);
+		ConnectOK = false;
+		return -1,"NO SN";
+	end
+end
+--]]
+function GetBarcode()
+	if ConnectOK == false then
+		return -1,"Connect err!"
+	end
+	local sn = pacsocket.GetBarcode();      -------修改
+	if(sn ~= nil) then
+		SetMlbSN(tonumber(tc.ID()),sn);
+		global_SN = sn;
+		checkusb.ScanTest(sn);
+		if WZSSCFS ~= nil then
+        	local ret = wzssfcs.WZSSCFSQuery(sn);
+        	if ret ~= 0 then
+        		wzssfcs.NotificationTestOnStop();
+        		Delay(100);
+        		return -1,"Check your SFCS error!";
+        	end
+    	end
+		return string.len(sn),sn;
+	else
+		msgbox("PACSocket","网络连接失败！请检查网络；".."\n".."如果找不到原因，请重启PAC后插拔Mac mini上的网线!",nil,nil,nil);
+		ConnectOK = false;
+		return -1,"NO SN";
+	end
+end
+
+function ItemCheckUUT()
+	if ConnectOK == false then
+		return -1,"Connect err!"
+	end
+
+	CheckUUTOK = true;
+
+	Delay(500);
+	return 0;	
+
+end
+
+function ItemcheckEEPROM()
+	if ConnectOK == false then
+		return -1,"Connect err!"
+	end
+	if CheckUUTOK == false then
+		return -1,"No UUT"
+	end
+    local ret = INTERFACE:Call_EEPROM_Check(ProductPID,global_SN)     ------修改
+    if ret ~= 0 then
+    	return -1,ret;
+    end
+    return ret;
+end
+
+function ItemcheckBL()
+	if ConnectOK == false then
+		return -1,"Connect err!"
+	end
+	if CheckUUTOK == false then
+		return -1,"No UUT"
+	end
+    local ret = INTERFACE:Call_Check_BL_Status(ProductPID,global_SN);    ------修改
+    if ret ~= 0 then
+    	return -1,ret;
+    end
+    return ret;
+end
+
+function ItemcheckFWVersion(pars)
+	--pars is something like 0x0834 or 0x0852 etc number
+	local str_ret = string.format("0x%04x",pars);
+	if ConnectOK == false then
+		return -1,"Connect err!"
+	end
+	if CheckUUTOK == false then
+		return -1,"No UUT"
+	end
+    local ret = INTERFACE:Call_FW_Version_Check(ProductPID,global_SN,pars);   ---------修改
+    -- msgbox("AAAA"..tostring(ret),"OK",nil,nil,nil);
+    if ret == 0 then
+    	return str_ret;
+    else
+    	return -1,ret;
+    end
+end
+
+function  ItemLEDturnon()
+	if ConnectOK == false then
+		return -1,"Connect err!"
+	end
+	if CheckUUTOK == false then
+		return -1,"No UUT"
+	end
+	INTERFACE:Call_LEDs_On(ProductPID,global_SN);
+	INTERFACE:Call_Caps_on(ProductPID,global_SN);
+	--capsLockLED_On();
+	--Delay(2000);
+	return 0;
+	--cmd = "-pid 0x277 -interface 1 -type output set 0xb0 0xb0 1 0 2 0 0";
+	--local buf = GetHIDReport(cmd,1500,"SET output");
+	--Delay(2000);
+	--if (#buf>0) then
+	--	capsLockLED_On();
+	--	DbgOut(buf);
+	--	return 0;
+	--else
+	--	return -1,"Fail to find any device!";
+	--end
+end
+
+function  ItemLEDturnoff()
+	if ConnectOK == false then
+		return -1,"Connect err!"
+	end
+	if CheckUUTOK == false then
+		return -1,"No UUT"
+	end
+	INTERFACE:Call_LEDs_Off(ProductPID,global_SN);
+	Delay(50)
+	INTERFACE:Call_Caps_off(ProductPID,global_SN);
+	--capsLockLED_Off();
+	return 0;
+end
+
+function  GetResultFromPAC(cmd)
+	if ConnectOK == false then
+		return -1,"Connect err!"
+	end
+	if CheckUUTOK == false then
+		return -1,"No UUT"
+	end
+	local ret = pacsocket.TCPSendReceive(cmd,3000,"\r\n");
+	if cmd == nil then
+		return -1,"null";
+	end
+	return ret;
+end
+
+function  fixtureOut()
+	local ret = pacsocket.TCPSendReceive("testdone?",3000,"\r\n");
+	local cmd = string.match(ret,"ACK_DONE");
+	if cmd == nil then
+		return -1 ;
+	end
+	DbgOut("fixtureOut:"..ret);
+	return 0;
+end
+
+function ItemKeyPressTest()
+	if ConnectOK == false then
+		return -1,"Connect err!"
+	end
+	if CheckUUTOK == false then
+		return -1,"No UUT"
+	end
+	KEYBOARD:setAllKeyPressLimit(1,5);
+	KEYBOARD:BeginTest();
+	local n=0;
+	local timeout=15000/1000;--timeout 50 second
+	local starttime=KEYBOARD:GetTimeInterval();
+	local now=starttime;
+	pacsocket.TCPSendString("keytest");
+	while true do
+		n=n+1;
+		if KEYBOARD:isClose() then
+			break;
+		end
+		if KEYBOARD:isCancelled() then
+			break;
+		end
+		now=KEYBOARD:GetTimeInterval();
+		if now-starttime>timeout then
+            print("timeout");
+			break;
+		end
+		local ret = pacsocket.TCPReadString();
+		if string.len(ret)>0 then
+			break;
+		end
+        Delay(500);
+	end
+	Delay(2000);
+	KEYBOARD:EndTest();
+end
+
+function ItemKeyPressTimes(par)
+	if ConnectOK == false then
+		return -1,"Connect err!"
+	end
+	if CheckUUTOK == false then
+		return -1,"No UUT"
+	end
+	return KEYBOARD:getKeypressTimes(par)
+end
+
+function  ItemReadV(par)
+	if TestVolatge1 == 0 then
+		return nil
+	end
+	if par== "SMC_LID" then
+		local num =tonumber(vTable[1]);
+		return num;
+	end
+	if par== "SMC_ONOFF_L" then
+		local num =tonumber(vTable[2]);
+		return num;
+	end
+	if par== "SMC_LSOC_RS" then
+		local num =tonumber(vTable[3]);
+		return num;
+	end
+	if par== "PP5V_S0" then
+		local num =tonumber(vTable[4]);
+		return num;
+	end
+	if par== "PP3V3_S4" then
+		local num =tonumber(vTable[5]);
+		return num;
+	end
+	if par== "PP3V3_G3" then
+		local num =tonumber(vTable[6]);
+		return num;
+	end
+	if par== "TP0201" then
+		local ret = pacsocket.TCPSendReceive("readv TP0201",3000,"\n");
+		if ret == nil then 
+			return nil;
+		end
+		local num = tonumber(string.sub(ret,6,#ret))
+		if 1.7<num and num<=2.5 then
+			return nil,"The pin disconnet,please check!"
+		end
+		TP0201_V = num;
+		return num;
+	end
+	return -1,"par Error!";
+end
+
+function  ItemReadC(par)
+	if TestCurrent == 0 then
+		return nil
+	end
+	if par== "LED1" then
+		local num =tonumber(cTable[1]);
+		return num;
+	end
+	if par== "LED2" then
+		local num =tonumber(cTable[2]);
+		return num;
+	end
+	if par== "LED3" then
+		local num =tonumber(cTable[3]);
+		return num;
+	end
+	if par== "LED4" then
+		local num =tonumber(cTable[4]);
+		return num;
+	end
+	if par== "LED5" then
+		local num =tonumber(cTable[5]);
+		return num;
+	end
+	if par== "LED6" then
+		local num =tonumber(cTable[6]);
+		return num;
+	end
+	if par== "LED7" then
+		local num =tonumber(cTable[7]);
+		return num;
+	end
+	if par== "LED8" then
+		local num =tonumber(cTable[8]);
+		return num;
+	end
+	if par== "LED9" then
+		local num =tonumber(cTable[9]);
+		return num;
+	end
+	if par== "LED10" then
+		local num =tonumber(cTable[10]);
+		return num;
+	end
+	if par== "LED11" then
+		local num =tonumber(cTable[11]);
+		return num;
+	end
+	if par== "LED12" then
+		local num =tonumber(cTable[12]);
+		return num;
+	end
+	if par== "LED13" then
+		local num =tonumber(cTable[13]);
+		return num;
+	end
+	if par== "PP3V3_S4" then
+		local num =tonumber(cTable[14]);
+		return num;
+	end
+	if par== "PP5V_S0" then
+		local num =2*tonumber(cTable[15]);
+		return num;
+	end
+	return -1,"par Error!";
+end
+
+function ItemCom3Key()
+	local ret = pacsocket.TCPSendReceive("p3key ON",3000,"\n");
+	Delay(180)
+	local ret = pacsocket.TCPSendReceive("readc PP3V3_G3",3000,"\n");
+	pacsocket.TCPSendReceive("p3key OFF",3000,"\n");
+	if ret == nil then 
+			return nil;
+		end
+	if #ret > 0 then
+		local tmpV = string.sub(ret,6,string.len(ret));
+		local tmpV_d = tonumber(tmpV)/10;
+		return tmpV_d;
+	else
+		return 0;
+	end
+end
+
+function ItemPowerKey()
+	local ret = pacsocket.TCPSendReceive("powerkey ON",3000,"\n");
+	--PowerKey
+	local ret = pacsocket.TCPSendReceive("readv SMC_ONOFF_L",3000,"\n");
+	pacsocket.TCPSendReceive("powerkey ON",3000,"\n");
+	if ret == nil then 
+			return nil;
+	end
+	if #ret > 0 then
+		local tmpV = string.sub(ret,6,string.len(ret));
+		local tmpV_d = tonumber(tmpV);
+		return tmpV_d;
+	else
+		return 0;
+	end
+end
+
+function ItemCom4Key()
+	local ret = pacsocket.TCPSendReceive("p4key ON",3000,"\n");
+	Delay(180)
+	local ret = pacsocket.TCPSendReceive("readv SMC_LSOC_RS",3000,"\n");
+	pacsocket.TCPSendReceive("p4key OFF",3000,"\n");
+	if ret ==nil then 
+		return nil
+	end
+	if #ret > 0 then
+		local tmpV = string.sub(ret,6,string.len(ret));
+		local tmpV_d = tonumber(tmpV);
+		return tmpV_d;
+	else
+		return 0;
+	end
+end
+
+function ItemLedCheck()
+	local ret = pacsocket.TCPSendReceive("ledstatus",3000,"\n");
+	if ret ==nil then 
+		return nil
+	end
+	if #ret >0 then
+		ret = string.gsub(ret,"\n","");
+		ret = string.gsub(ret,"\r","");
+		DbgOut(ret);
+		if string.find(ret,"ACK_PASS") then
+			return "PASS";
+		else
+			return -1,ret;
+		end
+	end
+end
+
+--readv SMC_LID;SMC_ONOFF_L;SMC_LSOC_RS;PP5V_S0;PP3V3_S4;PP3V3_G3
+function Readv1Function(vtimeout)
+	local ret = pacsocket.TCPSendReceive("readv SMC_LID;SMC_ONOFF_L;SMC_LSOC_RS;PP5V_S0;PP3V3_S4;PP3V3_G3;TP0201",vtimeout,"\n");
+	if ret == nil then
+		TestVoltage1 =0
+		return -1
+	end
+	if (string.len(ret)>0) then
+		local tmpV = string.sub(ret,6,string.len(ret));
+		DbgOut(tmpV);
+		vTable = __split(tmpV,";");
+		TestVoltage1 =1
+		return 0;
+	end
+end
+function Readv2Function(vtimeout)
+	local ret = pacsocket.TCPSendReceive("readv LED0322;LED0401;LED0402",vtimeout,"\n");
+	if ret == nil then
+		TestVoltage2 =0
+		return -1
+	end
+	if (string.len(ret)>0) then
+		local tmpV = string.sub(ret,6,string.len(ret));
+		DbgOut(tmpV);
+		v2Table = __split(tmpV,";");
+		TestVoltage2 =1
+		return 0;
+	end
+end
+--readc LED1;LED2;LED3;LED4;LED5;LED6;LED7;LED8;LED9;LED10;LED11;LED12;LED13;PP3V3_S4;PP5V_S0
+function ReadcFunction(vtimeout)
+	local ret = pacsocket.TCPSendReceive("readc LED1;LED2;LED3;LED4;LED5;LED6;LED7;LED8;LED9;LED10;LED11;LED12;LED13;PP3V3_S4;PP5V_S0;LED0322;LED0401;LED0402",vtimeout,"\n");
+	if ret == nil then
+		TestCurrent = 0
+		return -1
+	end
+	if (string.len(ret)>0) then
+		local tmpC = string.sub(ret,6,string.len(ret));
+		DbgOut(tmpC);
+		cTable = __split(tmpC,";");
+		TestCurrent = 1
+		return 0;
+	end
+end
+
+--------------------TestItem Function End------------------------
+
+------------------------ Public Used Start-------------------------
+
+function GetHIDReport(param, time_out, detect)
+	local app_path_hidreport = "/usr/local/bin/hidreport";
+	local hidreport_output_path = "/tmp/osExecute.txt";
+	local ret = nil;
+	if (detect == nil or type(detect)~="string") then
+		detect = "[\r\n]"
+	end
+	os.remove(hidreport_output_path);
+	if (param) then
+		local cmd = string.format("%s %s > %s", app_path_hidreport, param, hidreport_output_path);
+		os.execute(cmd);
+		local timeout = time_out;
+		if (timeout==nil or timeout<100) then
+			timeout = 100
+		end
+		Delay(500);
+		for i=1, timeout/100 do
+			ret = ReadFile(hidreport_output_path);
+			if (ret and #ret>0) then
+				if (string.match(ret, detect)) then
+					break;
+				end 
+			end
+			Delay(100);
+		end
+	end
+	return ret;
+end
+
+
+
+function ReadFile(file_path)
+	local ret = nil;
+	local path = file_path;
+	local f = io.open(path, "r");
+	if f == nil then return nil, "Failed to open file: "..path; end
+	ret = f:read("*all");
+	f:close();
+	return ret;
+end
+
+function __split(str, reps)
+	local r = {};
+	if (str == nil) then return nil; end
+	string.gsub(str, "[^"..reps.."]+", function(w) table.insert(r, w) end);
+	return r;
+end
+
+
+function capsLockLED_On()
+	if capsLocak == false then
+		pacsocket.TCPSendReceive("wio 11 21 1",3000,"\n");
+		Delay(500);
+		pacsocket.TCPSendReceive("wio 11 21 0",3000,"\n");
+		capsLocak = true;
+		DbgOut("CapsLock Turn on");
+	end
+end
+
+function capsLockLED_Off()
+	if capsLocak == true then
+		pacsocket.TCPSendReceive("wio 11 21 1",3000,"\n");
+		Delay(500);
+		pacsocket.TCPSendReceive("wio 11 21 0",3000,"\n");
+		capsLocak = false;
+		DbgOut("CapsLock Turn off");
+	end
+end
+
+function McuTrigger(par)
+
+end
+------------Change Function----------------
+function funSkipPerV(par)
+	if TP0201_V == nil then 
+		return false;
+	end
+	local b = (tonumber(TP0201_V) > 2.7) ; 
+	--msgbox("AAA","ReturnTP "..tostring(TP0201_V).." B"..tostring(b).." ",nil,nil,nil)
+	local rslt=0
+	rslt = not (b == par ) ;
+	-- msgbox("AAA","Return"..par.." "..ret,nil,nil,nil)
+	return rslt ;
+
+end
+---------------Change end--------------------
+function  ItemReadCaculate(par)
+	if par== "LED0322" then
+		local ret = pacsocket.TCPSendReceive("ad 42 6",3000,"\n");
+		if ret == nil then
+			return nil
+		end
+		local num = tonumber(string.sub(ret,7,#ret))
+		num =string.format("%.3f",num/0.51);
+		return num;
+	end
+	if par== "LED0401" then
+		local ret = pacsocket.TCPSendReceive("ad 42 5",3000,"\n");
+		if ret == nil then
+			return nil
+		end
+		local num = tonumber(string.sub(ret,7,#ret))
+		num =string.format("%.3f",num/0.9);
+		return num;
+	end
+	if par== "LED0402" then
+		local ret = pacsocket.TCPSendReceive("ad 42 7",3000,"\n");
+		if ret == nil then
+			return nil
+		end
+		local num = tonumber(string.sub(ret,7,#ret))
+		num =string.format("%.3f",num/0.9);
+		return num;
+	end
+	return -1,"par Error!";
+end
+
+function ItemLedCheck3()
+
+	local ret = pacsocket.TCPSendReceive("camera",3000,"\n");
+	if ret ==nil then 
+		return nil;
+	end
+	if #ret >0 then
+		ret = string.gsub(ret,"\n","");
+		ret = string.gsub(ret,"\r","");
+		DbgOut(ret);
+		ret1=string.sub(ret,5,#ret)
+		DbgOut("ret="..tonumber(#ret1))
+		local ANSIKey="11000000111111111111111111111111111111111111111111111111111111111111111111111111000000010"
+		local JISKey="11000000111111111111111111111111111111111111111111111111111111111111111111111111000000000"
+		DbgOut("ANSIKey number="..tonumber(#ANSIKey))
+		DbgOut("JISKey number="..tonumber(#JISKey))
+		local i =1;
+		local abc="";
+		if KBType == "ANSI" then
+			for i=1,#ret1 do
+				if string.sub(ret1,i,i) ~=string.sub(ANSIKey,i,i) then
+					DbgOut("Key"..i.." does not light up")
+					if ANSI_LED_Table[i] ~= nil then
+						abc=abc..";"..ANSI_LED_Table[i];
+					else
+						local str = string.format("no value at ANSI_LED_Table[%d]",i);
+						return nil,str;
+					end
+				end
+			end
+		end
+
+		if KBType == "JIS" then
+			for i=1,#ret1 do
+				if string.sub(ret1,i,i) ~=string.sub(JISKey,i,i) then
+					DbgOut("Key"..i.." does not light up")
+					if JIS_LED_Table[i] ~= nil then
+						abc=abc..";"..JIS_LED_Table[i];
+					else
+						local str = string.format("no value at JIS_LED_Table[%d]",i);
+						return nil,str;
+					end
+				end
+			end
+		end
+		abc = string.sub(abc,2,#abc)
+		if abc == "" then
+			return "PASS"
+		end
+		if #abc>=30 then
+			return "FAIL","Fail all Keys"
+		end
+		DbgOut("Key:"..abc.." does not light up")
+		return "FAIL","Fail Key:"..abc;
+		
+	end
+end
+
+function Call_Check_Keyboard_Type_Lua(par)
+	local KBTypeCheck = INTERFACE:Call_Check_Keyboard_Type(par)           ----------修改
+	if KBTypeCheck==nil or KBTypeCheck=="" then
+		return nil,"nil,please check the connection"
+	end
+	return KBTypeCheck
+end
+
+
+
+

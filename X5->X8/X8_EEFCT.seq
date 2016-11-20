@@ -1,0 +1,125 @@
+ProductName_Scrpit = "X8";
+Module= "_EEFCT_"..KeyboardName--全局变量
+if (#ProductName >= 2) then
+	ProductName_Json = string.sub(ProductName,1,2);
+end	
+
+if (ProductName_Json ~= ProductName_Scrpit) then
+	Module = ProductName_Scrpit..Module;--Module Name
+	msgbox("警告!!","Json文件中PRODUCT类型与脚本不一致,请检查确认脚本使用是否实用该工位！",nil,nil,nil);
+	
+else
+	Module = ProductName_Scrpit..Module;--Module Name
+end
+Version="20161111V1";			--Version
+							--[[
+							--update ISO led location table
+							--This Script applies to three module (ANSI/JIS/ISO).You can switch them in TM platform.
+							-- Add Delay at Reset LED enable
+							]]
+-----------------------------------------------limit for KBD_ID_DETECT------------------------------------------------------------------------------------
+local KBD_ID_DETECT_GND_limit = {limit_Lower =  {["ANSI"] = 0, ["ISO"] = 3.1,["JIS"] = 0,};limit_Upper = { ["ANSI"] = 0.1, ["ISO"] = 3.3,["JIS"] = 0.1,};};
+local KBD_ID_DETECT_3V3_Limit = {limit_Lower =  {["ANSI"] = 1, ["ISO"] = 3.1,["JIS"] = 0,};limit_Upper = { ["ANSI"] = 2.1, ["ISO"] = 3.3,["JIS"] = 0.1,};};
+------------------------------------------------由表测试Item-----------------------------------------------------------------------------------------------
+local InitTestSub= {
+
+	 {name="PP5V_S0_LEDPWR",lower=0,upper=0.7,unit="V",entry=ItemMeasureVoltage,parameter="PP5V_S0_LEDPWR",sub=nil,skip=0,remark="TP1004"},
+	 {name="PP3V3_S4_LEDDRV",lower=0,upper=0.7,unit="V",entry=ItemMeasureVoltage,parameter="PP3V3_S4_LEDDRV",sub=nil,skip=0,remark="TP1005"},
+	 {name="KeyBoard ID",lower=KeyboardName,upper=KeyboardName,unit=nil,entry=Call_Keyboard_ID_Check,parameter=nil,sub=nil,skip=0},
+	 {name="Check_FWVersion",lower="0x0878",upper="0x0878",unit=nil,entry=ItemcheckFWVersion,parameter=0x878,sub=nil,skip=0},
+	 {name="Check_EEPROM",lower=0,upper=0,unit=nil,entry=ItemcheckEEPROM,parameter=nil,sub=nil,skip=0},
+	 {name="LED Color Bin Code",lower="",upper="",unit=nil,entry=ItemCheckSFCBinCode,parameter=nil,sub=nil,skip=0},
+	 {name="Reset LED Enable",lower=0,upper=0,unit=nil,entry=ResetLEDEnable,parameter=Keyboard_Type_index,sub=nil,skip=0},
+	 {name="Check_BL",lower=0,upper=0,unit=nil,entry=ItemcheckBL,parameter=nil,sub=nil,skip=0},
+ 	 {name="Turn_on_LED",lower=0,upper=0,unit=nil,entry=ItemLEDTurnOn,parameter=nil,sub=nil,skip=0},
+};
+local InitTestItem={name="Init",entry=CapacitorDischarge,parameter=2000,sub=InitTestSub,};
+-----------------------------------------------------Volatge Test ------------------------------------------------------------------------------------------
+
+local VoltageTestSub= {
+
+	 {name="PP5V_S0_HOST",lower=4.85,upper=5.25,unit="V",entry=ItemReadV,parameter="PP5V_S0",sub=nil,skip=0,remark="TP6&TP66"},
+	 {name="PP3V3_S4_HOST",lower=3.1,upper=3.46,unit="V",entry=ItemReadV,parameter="PP3V3_S4",sub=nil,skip=0,remark="TP11&TP68"},
+	 {name="PP3V3_G3H_HOST",lower=3.1,upper=3.46,unit="V",entry=ItemReadV,parameter="PP3V3_G3",sub=nil,skip=0,remark="TP10&TP67"},
+};
+local VoltageItem={name="Voltage Test",entry=ReadvFunction,parameter=5000,sub=VoltageTestSub};
+---------------------------------------------------Current Test --------------------------------------------------------------------------------
+
+local CurrentTestSub= {
+
+ 	 {name="PP5V_S0_HOST_CURRENT",lower=172,upper=205,unit="mA",entry=ItemReadC,parameter="PP5V_S0",sub=nil,skip=0,remark="TP6&TP66"},
+	 {name="PP3V3_S4_HOST_CURRENT",lower=37,upper=52,unit="mA",entry=ItemReadC,parameter="PP3V3_S4",sub=nil,skip=0,remark="TP11&TP68"},
+	 {name="PP3V3_G3H_HOST_CURRENT",lower=0.12,upper=0.2,unit="mA",entry=ItemReadC,parameter="PP3V3_G3H",sub=nil,skip=0,remark="TP10&TP67"},
+	 {name="LED_CURRENT_R123",lower=1.8,upper=2.4,unit="mA",entry=ItemReadC,parameter="LED1",sub=nil,skip=0,remark="TP50&TP51"},
+	 {name="LED_CURRENT_R94",lower=1.8,upper=2.4,unit="mA",entry=ItemReadC,parameter="LED5",sub=nil,skip=0,remark="TP52&TP53"},
+	 {name="LED_CURRENT_R132",lower=1.8,upper=2.4,unit="mA",entry=ItemReadC,parameter="LED9",sub=nil,skip=0,remark="TP54&TP55"},
+	 {name="LED_CURRENT_R190",lower=1.8,upper=2.4,unit="mA",entry=ItemReadC,parameter="LED10",sub=nil,skip=0,remark="TP56&TP57"},
+	 {name="Caps-lock_LED_current",lower=15,upper=27,unit="mA",entry=ItemReadC,parameter="LED13",sub=nil,skip=0,remark="TP60&TP61"},
+};
+local CurrentItem={name="Current Test",entry=ReadcFunction,parameter=5000,sub=CurrentTestSub};
+---------------------------------------------Combie Key Test------------------------------------------------------------------------------------
+
+local FunctionTestSub= {
+
+	 {name="LED_Check",lower="PASS",upper="PASS",unit=nil,entry=LedCheck,parameter=nil,sub=nil,skip=0},
+	 {name="Turn_off_LED",lower=0,upper=0,unit=nil,entry=ItemLEDturnoff,parameter=nil,sub=nil,skip=0,visible=0,},
+	 {name="ItemPowerKeyUp_Test",lower="",upper="",unit=nil,entry=ItemPowerKeyUp_Test,parameter=nil,sub=nil,skip=0,visible=0},
+	 {name="SMC_ONOFF_L_PWRKEY_UP",lower=3.1,upper=3.46,unit="V",entry=ItemPowerKeyUp,parameter="SMC_ONOFF_L",sub=nil,skip=0,remark="TP4"},
+	 {name="SMC_LSOC_RST_PWRKEY_UP",lower=0,upper=0.1,unit="V",entry=ItemPowerKeyUp,parameter="SMC_LSOC_RS",sub=nil,skip=0,remark="TP5"},
+	 {name="SMC_ONOFF_L_PWRKEY_DOWN",lower=0,upper=0.1,unit="V",entry=ItemPower3Key,parameter="SMC_ONOFF_L",sub=nil,skip=0,remark="TP4"},
+	 {name="SMC_LSOC_RST_PWRKEY_DOWN",lower=0,upper=0.1,unit="V",entry=ItemPower3Key,parameter="SMC_LSOC_RS",sub=nil,skip=0,remark="TP5"}, 
+	 {name="SMC_LSOC_RST_4KEYS_UP",lower=0,upper=0.1,unit="V",entry=ItemPowerKeyUp,parameter="SMC_LSOC_RS",sub=nil,skip=0,remark="TP5"},
+     {name="SMC_LSOC_RST_L_BOOT_4KEYS_UP",lower=3.1,upper=3.46,unit="V",entry=ItemPowerKeyUp,parameter="SMC_LSOC_RST_L_BOOT",sub=nil,skip=0,remark="TP0906"},
+	 {name="SMC_LSOC_RST_4KEYS_DOWN",lower=3.1,upper=3.46,unit="V",entry=ItemCom4Key,parameter="SMC_LSOC_RS",sub=nil,skip=0,remark="TP5"},
+	 {name="SMC_LSOC_RST_L_BOOT_4KEYS_DOWN",lower=0,upper=0.1,unit="V",entry=ItemCom4Key,parameter="SMC_LSOC_RST_L_BOOT",sub=nil,skip=0,remark="TP0906"},
+	 {name="KBD_ID_DETECT_GND",lower=KBD_ID_DETECT_GND_limit["limit_Lower"][KeyboardName],upper=KBD_ID_DETECT_GND_limit["limit_Upper"][KeyboardName],unit="V",entry=KBD_ID_DETECT,parameter="KBD_ID_DETECT_GND",sub=nil,skip=0,remark="TP0202"},
+	 {name="KBD_ID_DETECT_3V3",lower=KBD_ID_DETECT_3V3_Limit["limit_Lower"][KeyboardName],upper=KBD_ID_DETECT_3V3_Limit["limit_Upper"][KeyboardName],unit="V",entry=KBD_ID_DETECT,parameter="KBD_ID_DETECT_3V3",sub=nil,skip=0,remark="TP0202"},
+};
+local FunctionItem={name="Function Test",entry=nil,parameter=nil,sub=FunctionTestSub};
+----------------------------------------------------------Hallsensor Test----------------------------------------------------------------------------
+
+local HallEffectSensorTestItemSub= {
+	---for IC U0902
+     {name="SMC_LID_L_BOTH_OFF",lower=3.1,upper=3.46,unit="V",entry=MeasureVoltageOfHallSensor,parameter={flag="SMC_LID_L_BOTH_OFF",sign="SMC_LID"},sub=nil,skip=0,remark="TP19"},
+     {name="SMC_LID_LEFT_OFF",lower=3.1,upper=3.46,unit="V",entry=MeasureVoltageOfHallSensor,parameter={flag="SMC_LID_LEFT_OFF",sign="SMC_LID_LEFT"},sub=nil,skip=0,remark="TP0907"},
+     {name="SMC_LID_LEFT_ON",lower=0,upper=0.33,unit="V",entry=MeasureVoltageOfHallSensor,parameter={flag="SMC_LID_LEFT_ON",sign="SMC_LID_LEFT"},sub=nil,skip=0,remark="TP0907"},
+     {name="SMC_LID_L_LEFT_ON",lower=3.1,upper=3.46,unit="V",entry=MeasureVoltageOfHallSensor,parameter={flag="SMC_LID_L_LEFT_ON",sign="SMC_LID"},sub=nil,skip=0,remark="TP19"},
+	 {name="SMC_LID_RIGHT_OFF",lower=3.1,upper=3.46,unit="V",entry=MeasureVoltageOfHallSensor,parameter={flag="SMC_LID_RIGHT_OFF",sign="SMC_LID_RIGHT"},sub=nil,skip=0,remark="TP0908"},
+	 {name="SMC_LID_RIGHT_ON",lower=0,upper=0.33,unit="V",entry=MeasureVoltageOfHallSensor,parameter={flag="SMC_LID_RIGHT_ON",sign="SMC_LID_RIGHT"},sub=nil,skip=0,remark="TP0908"},
+	 {name="SMC_LID_L_RIGHT_ON",lower=3.1,upper=3.46,unit="V",entry=MeasureVoltageOfHallSensor,parameter={flag="SMC_LID_L_RIGHT_ON",sign="SMC_LID"},sub=nil,skip=0,remark="TP19"},
+     {name="SMC_LID_L_BOTH_ON",lower=0,upper=0.33,unit="V",entry=MeasureVoltageOfHallSensor,parameter={flag="SMC_LID_L_BOTH_ON",sign="SMC_LID"},sub=nil,skip=0,remark="TP19"},
+
+
+};
+local HallEffectSensorTestItem={name="Hall_Effect_Sensor Test",entry=nil,parameter=nil,sub=HallEffectSensorTestItemSub};
+
+local CapacitorDischarge={name="Capacitor_Discharge",lower=0,upper=0,unit="",entry=CapacitorDischarge,parameter=1000,sub=nil,skip=0,visible=0};
+---------------------------------------------------------------------------------------------------------------------------------
+local FunctionalTest_sub = {
+
+	 {name="Check LED Enable Status",lower=0,upper=0,unit=nil,entry=CheckLEDEnableStatus,parameter=Keyboard_Type_index,sub=nil,skip=0},
+	 {name="Check EEPROM Data",lower=0,upper=0,unit=nil,entry=CheckEEPROMData,parameter=Keyboard_Type_index,sub=nil,skip=0},
+
+}
+local FunctionalTest = {name="Functional Test",lower="",upper="",entry=nil,parameter=nil,sub=FunctionalTest_sub};
+---------------------------------------------KeyPressTest---------------------------------------------------------------------
+
+KeyPressTestItem_CC_SubItem = GetKeyPressTestSubByPos(ProductIndex,KeyboardName,Position_Index.CC);
+local KeyPressTestItem_CC_MainItem = {name="KeyPress "..KeyboardName.." "..Position_Name[Position_Index.CC], lower=true, upper=true, unit="", entry=InitPointAndPressWithPar, parameter={Position=Position_Index.CC, timeout=20, ParTable=KeyPressTestItem_CC_SubItem}, sub=KeyPressTestItem_CC_SubItem};
+local KeyPressTestItem_Init={name="Key Press test Start",lower=nil,upper=nil,unit=nil,entry=InitKeyPressTest,parameter=nil,sub=nil,skip=0,visible=0};
+local KeyPressTestItem_End={name="Key Press Test End",lower=nil,upper=nil,unit=nil,entry=KeyPressTestEnd,parameter=nil,sub=nil,skip=0,visible=0}
+InitialKeyboardView(KeyPressTestItem_CC_SubItem,ProductIndex,KeyboardIndex);
+------------------------------------------------Test item-----------------------------------------------------------------------
+items = {
+			InitTestItem,
+			VoltageItem,
+			CurrentItem,
+			FunctionItem,
+			HallEffectSensorTestItem,
+			KeyPressTestItem_Init,
+			KeyPressTestItem_CC_MainItem,
+			KeyPressTestItem_End,
+			FunctionalTest,
+			CapacitorDischarge,
+			
+		};

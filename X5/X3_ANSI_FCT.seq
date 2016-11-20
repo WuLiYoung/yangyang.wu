@@ -1,0 +1,351 @@
+--全局变量
+StationType="FCT"     --include two types : FCT OQC
+ProductType="ANSI"	  --include four types : ANSI JIS ISO_H ISO_L
+
+
+------------------------Attantion-----------------------
+-------------------The following ban changing by Others except softengnieer------------
+Module="X3_"..ProductType.."_"..StationType
+Version="X3_ANSI_FCT_20160922V1"			--Version
+
+local InitTestSub = {
+	 {name="SetBarcode",lower=17,upper=17,unit=nil,entry=GetBarcode,parameter=nil,sub=nil,skip=0,},
+	 {name="Call_Check_Keyboard_Type",lower=0,upper=0,unit=nil,entry=Call_Check_Keyboard_Type_Lua,parameter="ANSI",sub=nil,skip=0},
+	 {name="CheckUUT",lower=0,upper=0,unit=nil,entry=ItemCheckUUT,parameter=nil,sub=nil,skip=0,visible=0,},
+	 {name="Check_FWVersion",lower="0x0877",upper="0x0877",unit=nil,entry=ItemcheckFWVersion,parameter=0x877,sub=nil,skip=0,},
+	 {name="Check_EEPROM",lower=0,upper=0,unit=nil,entry=ItemcheckEEPROM,parameter=nil,sub=nil,skip=0,},
+	 {name="Check_BL",lower=0,upper=0,unit=nil,entry=ItemcheckBL,parameter=nil,sub=nil,skip=0,},
+	 {name="Turn_on_LED",lower=0,upper=0,unit=nil,entry=ItemLEDturnon,parameter=nil,sub=nil,skip=0,},
+
+};
+local InitTestItem={name="Init",entry=nil,parameter=nil,sub=InitTestSub};
+
+local FunctionTestSub = {
+	 {name="PP3V3_G3H_HOST_Current_L",lower=0.075,upper=0.12,unit="mA",entry=ItemCom3Key,parameter=nil,sub=nil,skip="return funSkipPerV(false)",},
+	 {name="PP3V3_G3H_HOST_Current_H",lower=0.17,upper=0.28,unit="mA",entry=ItemCom3Key,parameter=nil,sub=nil,skip="return funSkipPerV(true)",},
+	 {name="SMC_LSOC_RST_KEY_DOWN",lower=0,upper=0.20,unit="V",entry=ItemCom4Key,parameter=nil,sub=nil,skip=0,},
+	 {name="LED_Check",lower="PASS",upper="PASS",unit=nil,entry=ItemLedCheck3,parameter=nil,sub=nil,skip=0,},
+	 {name="Turn_off_LED2",lower=0,upper=0,unit=nil,entry=ItemLEDturnoff,parameter=nil,sub=nil,skip=0,visible=0,},
+};
+local FunctionItem={name="Function Test",entry=nil,parameter=nil,sub=FunctionTestSub};
+
+local VoltageTestSub = {
+	 {name="PP5V_S0_HOST",lower=4.85,upper=5.25,unit="V",entry=ItemReadV,parameter="PP5V_S0",sub=nil,skip=0,},
+	 {name="PP3V3_S4_HOST",lower=3.1,upper=3.46,unit="V",entry=ItemReadV,parameter="PP3V3_S4",sub=nil,skip=0,},
+	 {name="PP3V3_G3H_HOST",lower=3.1,upper=3.46,unit="V",entry=ItemReadV,parameter="PP3V3_G3",sub=nil,skip=0,},
+	 {name="SMC_LSOC_RST_KEY_UP",lower=3,upper=3.36,unit="V",entry=ItemReadV,parameter="SMC_LSOC_RS",sub=nil,skip=0,},
+	 {name="LSOC_POL_Detect",lower=0,upper=0.2,unit="V",entry=ItemReadV,parameter="TP0201",sub=nil,skip=0},
+};
+local VoltageItem={name="Voltage Test",entry=Readv1Function,parameter=5000,sub=VoltageTestSub};
+local CurrentCaculateSub ={
+	 {name="BackLight_LED_Current_DS71R2",lower=1.8,upper=3.1,unit="mA",entry=ItemReadCaculate,parameter="LED0401",sub=nil,skip=0,},
+	 {name="BackLight_LED_Current_DS71R3",lower=1.8,upper=3.1,unit="mA",entry=ItemReadCaculate,parameter="LED0402",sub=nil,skip=0,},
+}
+local SpaceItem = {name="Space Bar Slave LED Item",entry=nil,parameter=5000,sub=CurrentCaculateSub}
+local CurrentTestSub = {
+	 {name="CAPSLOCK_LED_Current",lower=15,upper=27,unit="mA",entry=ItemReadC,parameter="LED13",sub=nil,skip=0,},
+	 {name="PP5V_S0_HOST_LED_On_Current",lower=145,upper=185,unit="mA",entry=ItemReadC,parameter="PP5V_S0",sub=nil,skip=0,},
+	 {name="PP3V3_S4_HOST_LED_On_Current",lower=32,upper=47,unit="mA",entry=ItemReadC,parameter="PP3V3_S4",sub=nil,skip=0,},
+	 {name="BackLight_LED_Current_DS60",lower=1.8,upper=2.4,unit="mA",entry=ItemReadC,parameter="LED1",sub=nil,skip=0,},
+	 {name="BackLight_LED_Current_DS59",lower=1.8,upper=2.4,unit="mA",entry=ItemReadC,parameter="LED5",sub=nil,skip=0,},
+	 {name="BackLight_LED_Current_DS71",lower=1.8,upper=2.4,unit="mA",entry=ItemReadC,parameter="LED9",sub=nil,skip=0,},
+	 {name="BackLight_LED_Current_DS71R4",lower=1.8,upper=2.4,unit="mA",entry=ItemReadCaculate,parameter="LED0322",sub=nil,skip=0,},
+
+};
+local CurrentItem={name="Current Test",entry=ReadcFunction,parameter=5000,sub=CurrentTestSub};
+-----------------------------------for ISO------------------------------------
+local VoltageTestSub_ISO = {
+	 {name="PP5V_S0_HOST",lower=4.85,upper=5.25,unit="V",entry=ItemReadV,parameter="PP5V_S0",sub=nil,skip=0,},
+	 {name="PP3V3_S4_HOST",lower=3.1,upper=3.46,unit="V",entry=ItemReadV,parameter="PP3V3_S4",sub=nil,skip=0,},
+	 {name="PP3V3_G3H_HOST",lower=3.1,upper=3.46,unit="V",entry=ItemReadV,parameter="PP3V3_G3",sub=nil,skip=0,},
+	 {name="SMC_LSOC_RST_KEY_UP",lower=2.7,upper=3.3,unit="V",entry=ItemReadV,parameter="SMC_LSOC_RS",sub=nil,skip=0,},
+};
+local VoltageItem_ISO={name="Voltage Test",entry=Readv1Function,parameter=5000,sub=VoltageTestSub_ISO};
+
+local FunctionTestSub_ISO_H = {
+	 {name="PP3V3_G3H_HOST_Current",lower=0.17,upper=0.28,unit="mA",entry=ItemCom3Key,parameter=nil,sub=nil,skip=0,},
+	 {name="SMC_LSOC_RST_KEY_DOWN",lower=0,upper=0.20,unit="V",entry=ItemCom4Key,parameter=nil,sub=nil,skip=0,},
+	 {name="LED_Check",lower="PASS",upper="PASS",unit=nil,entry=ItemLedCheck,parameter=nil,sub=nil,skip=0,},
+	 {name="Turn_off_LED2",lower=0,upper=0,unit=nil,entry=ItemLEDturnoff,parameter=nil,sub=nil,skip=0,visible=0,},
+};
+local FunctionItem_ISO_H={name="Function Test",entry=nil,parameter=nil,sub=FunctionTestSub_ISO_H};
+
+local FunctionTestSub_ISO_L = {
+	 {name="PP3V3_G3H_HOST_Current",lower=0.06,upper=0.12,unit="mA",entry=ItemCom3Key,parameter=nil,sub=nil,skip=0,},
+	 {name="SMC_LSOC_RST_KEY_DOWN",lower=0,upper=0.20,unit="V",entry=ItemCom4Key,parameter=nil,sub=nil,skip=0,},
+	 {name="LED_Check",lower="PASS",upper="PASS",unit=nil,entry=ItemLedCheck3,parameter=nil,sub=nil,skip=0,},
+	 {name="Turn_off_LED2",lower=0,upper=0,unit=nil,entry=ItemLEDturnoff,parameter=nil,sub=nil,skip=0,visible=0,},
+};
+local FunctionItem_ISO_L={name="Function Test",entry=nil,parameter=nil,sub=FunctionTestSub_ISO_L};
+
+----------------------------------------end------------------------------------------
+
+-----------------------------------------JIS------------------------------------------
+local CurrentCaculateSub_JIS ={
+	 {name="BackLight_LED_Current_DS71R4",lower=1.8,upper=2.4,unit="mA",entry=ItemReadCaculate,parameter="LED0322",sub=nil,skip=0,},
+	 {name="BackLight_LED_Current_DS71R3",lower=2,upper=2.55,unit="mA",entry=ItemReadCaculate,parameter="LED0402",sub=nil,skip=0,},
+}
+local SpaceItem_JIS= {name="Space Bar Slave LED Item",entry=nil,parameter=5000,sub=CurrentCaculateSub_JIS}
+
+local CurrentTestSub_JIS = {
+	 {name="CAPSLOCK_LED_Current",lower=15,upper=27,unit="mA",entry=ItemReadC,parameter="LED13",sub=nil,skip=0,},
+	 {name="PP5V_S0_HOST_LED_On_Current",lower=145,upper=185,unit="mA",entry=ItemReadC,parameter="PP5V_S0",sub=nil,skip=0,},
+	 {name="PP3V3_S4_HOST_LED_On_Current",lower=32,upper=47,unit="mA",entry=ItemReadC,parameter="PP3V3_S4",sub=nil,skip=0,},
+	 {name="BackLight_LED_Current_DS62",lower=1.8,upper=2.4,unit="mA",entry=ItemReadC,parameter="LED1",sub=nil,skip=0,},
+	 {name="BackLight_LED_Current_DS60",lower=1.8,upper=2.4,unit="mA",entry=ItemReadC,parameter="LED5",sub=nil,skip=0,},
+	 {name="BackLight_LED_Current_DS71",lower=1.8,upper=2.4,unit="mA",entry=ItemReadC,parameter="LED9",sub=nil,skip=0,},
+};
+local CurrentItem_JIS={name="Current Test",entry=ReadcFunction,parameter=5000,sub=CurrentTestSub_JIS};
+
+-----------------------------------------end------------------------------------------
+-------------------------------------------	ANSI -------------------------------------------
+local KeyTestSub_ANSI = {
+	{name="Tilde",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=53,sub=nil,skip=0,cof=0},
+	{name="Key_Num1",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=30,sub=nil,skip=0,cof=0},
+	{name="Key_Num2",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=31,sub=nil,skip=0,cof=0},
+	{name="Key_Num3",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=32,sub=nil,skip=0,cof=0},
+	{name="Key_Num4",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=33,sub=nil,skip=0,cof=0},
+	{name="Key_Num5",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=34,sub=nil,skip=0,cof=0},
+	{name="Key_Num6",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=35,sub=nil,skip=0,cof=0},
+	{name="Key_Num7",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=36,sub=nil,skip=0,cof=0},
+	{name="Key_Num8",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=37,sub=nil,skip=0,cof=0},
+	{name="Key_Num9",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=38,sub=nil,skip=0,cof=0},
+	{name="Key_Num0",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=39,sub=nil,skip=0,cof=0},
+	{name="Key_Minus",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=45,sub=nil,skip=0,cof=0},
+	{name="Key_Equal",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=46,sub=nil,skip=0,cof=0},
+	{name="Key_Delete",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=42,sub=nil,skip=0,cof=0},
+	{name="Key_Tab",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=43,sub=nil,skip=0,cof=0},
+	{name="Key_Q",		 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=20,sub=nil,skip=0,cof=0},
+	{name="Key_W",		 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=26,sub=nil,skip=0,cof=0},
+	{name="Key_E",		 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=8,sub=nil,skip=0,cof=0},
+	{name="Key_R",		 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=21,sub=nil,skip=0,cof=0},
+	{name="Key_T",		 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=23,sub=nil,skip=0,cof=0},
+	{name="Key_Y",		 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=28,sub=nil,skip=0,cof=0},
+	{name="Key_U",		 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=24,sub=nil,skip=0,cof=0},
+	{name="Key_I",		 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=12,sub=nil,skip=0,cof=0},
+	{name="Key_O",		 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=18,sub=nil,skip=0,cof=0},
+	{name="Key_P",		 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=19,sub=nil,skip=0,cof=0},
+	{name="Key_LeftBracket",	lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=47,sub=nil,skip=0,cof=0},
+	{name="Key_RightBracket",	lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=48,sub=nil,skip=0,cof=0},
+	{name="Key_Backlash",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=49,sub=nil,skip=0,cof=0},
+	{name="Key_CapsLock",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=57,sub=nil,skip=0,cof=0},
+	{name="Key_A",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=4,sub=nil,skip=0,cof=0},
+	{name="Key_S",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=22,sub=nil,skip=0,cof=0},
+	{name="Key_D",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=7,sub=nil,skip=0,cof=0},
+	{name="Key_F",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=9,sub=nil,skip=0,cof=0},
+	{name="Key_G",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=10,sub=nil,skip=0,cof=0},
+	{name="Key_H",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=11,sub=nil,skip=0,cof=0},
+	{name="Key_J",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=13,sub=nil,skip=0,cof=0},
+	{name="Key_K",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=14,sub=nil,skip=0,cof=0},
+	{name="Key_L",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=15,sub=nil,skip=0,cof=0},
+	{name="Key_Semicolon",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=51,sub=nil,skip=0,cof=0},
+	{name="Key_Quote",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=52,sub=nil,skip=0,cof=0},
+	{name="Key_Return",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=40,sub=nil,skip=0,cof=0},
+	{name="Key_LeftShift",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=225,sub=nil,skip=0,cof=0},
+	{name="Key_Z",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=29,sub=nil,skip=0,cof=0},
+	{name="Key_X",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=27,sub=nil,skip=0,cof=0},
+	{name="Key_C",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=6,sub=nil,skip=0,cof=0},
+	{name="Key_V",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=25,sub=nil,skip=0,cof=0},
+	{name="Key_B",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=5,sub=nil,skip=0,cof=0},
+	{name="Key_N",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=17,sub=nil,skip=0,cof=0},
+	{name="Key_M",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=16,sub=nil,skip=0,cof=0},
+	{name="Key_Comma",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=54,sub=nil,skip=0,cof=0},
+	{name="Key_Period",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=55,sub=nil,skip=0,cof=0},
+	{name="Key_Question",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=56,sub=nil,skip=0,cof=0},
+	{name="Key_RightShift",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=229,sub=nil,skip=0,cof=0},
+	{name="Key_fn",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=3,sub=nil,skip=0,cof=0},
+	{name="Key_Control",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=224,sub=nil,skip=0,cof=0},
+	{name="Key_LeftOption",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=226,sub=nil,skip=0,cof=0},
+	{name="Key_LeftCommand",	lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=227,sub=nil,skip=0,cof=0},
+	{name="Key_Space",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=44,sub=nil,skip=0,cof=0},
+	{name="Key_RightCommand",	lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=231,sub=nil,skip=0,cof=0},
+	{name="Key_RightOption",	lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=230,sub=nil,skip=0,cof=0},
+	{name="Key_Left",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=80,sub=nil,skip=0,cof=0},
+	{name="Key_Up",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=82,sub=nil,skip=0,cof=0},
+	{name="Key_Down",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=81,sub=nil,skip=0,cof=0},
+	{name="Key_Right",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=79,sub=nil,skip=0,cof=0},
+};
+local KeyTestItem_ANSI={name="Keyboard Test",entry=ItemKeyPressTest,parameter=15000,sub=KeyTestSub_ANSI};
+-------------------------------------------	ISO -------------------------------------------
+local KeyTestSub_ISO = {
+	{name="Key_ISO",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=100,sub=nil,skip=0,cof=0},
+	{name="Key_Num1",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=30,sub=nil,skip=0,cof=0},
+	{name="Key_Num2",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=31,sub=nil,skip=0,cof=0},
+	{name="Key_Num3",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=32,sub=nil,skip=0,cof=0},
+	{name="Key_Num4",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=33,sub=nil,skip=0,cof=0},
+	{name="Key_Num5",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=34,sub=nil,skip=0,cof=0},
+	{name="Key_Num6",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=35,sub=nil,skip=0,cof=0},
+	{name="Key_Num7",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=36,sub=nil,skip=0,cof=0},
+	{name="Key_Num8",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=37,sub=nil,skip=0,cof=0},
+	{name="Key_Num9",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=38,sub=nil,skip=0,cof=0},
+	{name="Key_Num0",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=39,sub=nil,skip=0,cof=0},
+	{name="Key_Minus",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=45,sub=nil,skip=0,cof=0},
+	{name="Key_Equal",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=46,sub=nil,skip=0,cof=0},
+	{name="Key_Delete",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=42,sub=nil,skip=0,cof=0},
+	{name="Key_Tab",	 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=43,sub=nil,skip=0,cof=0},
+	{name="Key_Q",		 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=20,sub=nil,skip=0,cof=0},
+	{name="Key_W",		 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=26,sub=nil,skip=0,cof=0},
+	{name="Key_E",		 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=8,sub=nil,skip=0,cof=0},
+	{name="Key_R",		 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=21,sub=nil,skip=0,cof=0},
+	{name="Key_T",		 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=23,sub=nil,skip=0,cof=0},
+	{name="Key_Y",		 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=28,sub=nil,skip=0,cof=0},
+	{name="Key_U",		 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=24,sub=nil,skip=0,cof=0},
+	{name="Key_I",		 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=12,sub=nil,skip=0,cof=0},
+	{name="Key_O",		 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=18,sub=nil,skip=0,cof=0},
+	{name="Key_P",		 		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=19,sub=nil,skip=0,cof=0},
+	{name="Key_LeftBracket",	lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=47,sub=nil,skip=0,cof=0},
+	{name="Key_RightBracket",	lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=48,sub=nil,skip=0,cof=0},
+	{name="Key_Backlash",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=49,sub=nil,skip=0,cof=0},
+	{name="Key_CapsLock",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=57,sub=nil,skip=0,cof=0},
+	{name="Key_A",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=4,sub=nil,skip=0,cof=0},
+	{name="Key_S",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=22,sub=nil,skip=0,cof=0},
+	{name="Key_D",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=7,sub=nil,skip=0,cof=0},
+	{name="Key_F",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=9,sub=nil,skip=0,cof=0},
+	{name="Key_G",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=10,sub=nil,skip=0,cof=0},
+	{name="Key_H",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=11,sub=nil,skip=0,cof=0},
+	{name="Key_J",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=13,sub=nil,skip=0,cof=0},
+	{name="Key_K",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=14,sub=nil,skip=0,cof=0},
+	{name="Key_L",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=15,sub=nil,skip=0,cof=0},
+	{name="Key_Semicolon",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=51,sub=nil,skip=0,cof=0},
+	{name="Key_Quote",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=52,sub=nil,skip=0,cof=0},
+	{name="Key_Return",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=40,sub=nil,skip=0,cof=0},
+	{name="Key_LeftShift",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=225,sub=nil,skip=0,cof=0},
+	{name="Key_Z",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=29,sub=nil,skip=0,cof=0},
+	{name="Key_X",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=27,sub=nil,skip=0,cof=0},
+	{name="Key_C",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=6,sub=nil,skip=0,cof=0},
+	{name="Key_V",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=25,sub=nil,skip=0,cof=0},
+	{name="Key_B",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=5,sub=nil,skip=0,cof=0},
+	{name="Key_N",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=17,sub=nil,skip=0,cof=0},
+	{name="Key_M",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=16,sub=nil,skip=0,cof=0},
+	{name="Key_Comma",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=54,sub=nil,skip=0,cof=0},
+	{name="Key_Period",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=55,sub=nil,skip=0,cof=0},
+	{name="Key_Question",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=56,sub=nil,skip=0,cof=0},
+	{name="Key_RightShift",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=229,sub=nil,skip=0,cof=0},
+	{name="Key_fn",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=3,sub=nil,skip=0,cof=0},
+	{name="Key_Control",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=224,sub=nil,skip=0,cof=0},
+	{name="Key_LeftOption",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=226,sub=nil,skip=0,cof=0},
+	{name="Key_LeftCommand",	lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=227,sub=nil,skip=0,cof=0},
+	{name="Key_Space",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=44,sub=nil,skip=0,cof=0},
+	{name="Key_RightCommand",	lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=231,sub=nil,skip=0,cof=0},
+	{name="Key_RightOption",	lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=230,sub=nil,skip=0,cof=0},
+	{name="Key_Left",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=80,sub=nil,skip=0,cof=0},
+	{name="Key_Up",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=82,sub=nil,skip=0,cof=0},
+	{name="Key_Down",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=81,sub=nil,skip=0,cof=0},
+	{name="Key_Right",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=79,sub=nil,skip=0,cof=0},
+};
+local KeyTestItem_ISO={name="Keyboard Test",entry=ItemKeyPressTest_ISO,parameter=15000,sub=KeyTestSub_ISO};
+-------------------------------------------	JIS -------------------------------------------
+local KeyTestSub_JIS = {
+	{name="Key_Num1",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=30,sub=nil,skip=0,cof=0},
+	{name="Key_Num2",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=31,sub=nil,skip=0,cof=0},
+	{name="Key_Num3",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=32,sub=nil,skip=0,cof=0},
+	{name="Key_Num4",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=33,sub=nil,skip=0,cof=0},
+	{name="Key_Num5",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=34,sub=nil,skip=0,cof=0},
+	{name="Key_Num6",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=35,sub=nil,skip=0,cof=0},
+	{name="Key_Num7",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=36,sub=nil,skip=0,cof=0},
+	{name="Key_Num8",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=37,sub=nil,skip=0,cof=0},
+	{name="Key_Num9",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=38,sub=nil,skip=0,cof=0},
+	{name="Key_Num0",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=39,sub=nil,skip=0,cof=0},
+	{name="Key_Minus",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=45,sub=nil,skip=0,cof=0},
+	{name="Key_Tilde",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=46,sub=nil,skip=0,cof=0},
+	{name="Key_Yen",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=137,sub=nil,skip=0,cof=0},
+	{name="Key_Delete",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=42,sub=nil,skip=0,cof=0},
+	{name="Key_Tab",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=43,sub=nil,skip=0,cof=0},
+	{name="Key_Q",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=20,sub=nil,skip=0,cof=0},
+	{name="Key_W",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=26,sub=nil,skip=0,cof=0},
+	{name="Key_E",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=8,sub=nil,skip=0,cof=0},
+	{name="Key_R",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=21,sub=nil,skip=0,cof=0},
+	{name="Key_T",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=23,sub=nil,skip=0,cof=0},
+	{name="Key_Y",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=28,sub=nil,skip=0,cof=0},
+	{name="Key_U",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=24,sub=nil,skip=0,cof=0},
+	{name="Key_I",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=12,sub=nil,skip=0,cof=0},
+	{name="Key_O",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=18,sub=nil,skip=0,cof=0},
+	{name="Key_P",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=19,sub=nil,skip=0,cof=0},
+	{name="Key_At",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=47,sub=nil,skip=0,cof=0}, ---addition key
+	{name="Key_LeftBracket",	lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=48,sub=nil,skip=0,cof=0},
+	{name="Key_Return",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=40,sub=nil,skip=0,cof=0},
+	{name="Key_Control",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=224,sub=nil,skip=0,cof=0},
+	{name="Key_A",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=4,sub=nil,skip=0,cof=0},
+	{name="Key_S",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=22,sub=nil,skip=0,cof=0},
+	{name="Key_D",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=7,sub=nil,skip=0,cof=0},
+	{name="Key_F",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=9,sub=nil,skip=0,cof=0},
+	{name="Key_G",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=10,sub=nil,skip=0,cof=0},
+	{name="Key_H",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=11,sub=nil,skip=0,cof=0},
+	{name="Key_J",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=13,sub=nil,skip=0,cof=0},
+	{name="Key_K",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=14,sub=nil,skip=0,cof=0},
+	{name="Key_L",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=15,sub=nil,skip=0,cof=0},
+	{name="Key_Semicolon",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=51,sub=nil,skip=0,cof=0},
+	{name="Key_Colon",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=52,sub=nil,skip=0,cof=0},
+	{name="Key_RightBracket",	lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=49,sub=nil,skip=0,cof=0},
+	{name="Key_LeftShift",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=225,sub=nil,skip=0,cof=0},
+	{name="Key_Z",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=29,sub=nil,skip=0,cof=0},
+	{name="Key_X",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=27,sub=nil,skip=0,cof=0},
+	{name="Key_C",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=6,sub=nil,skip=0,cof=0},
+	{name="Key_V",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=25,sub=nil,skip=0,cof=0},
+	{name="Key_B",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=5,sub=nil,skip=0,cof=0},
+	{name="Key_N",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=17,sub=nil,skip=0,cof=0},
+	{name="Key_M",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=16,sub=nil,skip=0,cof=0},
+	{name="Key_Comma",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=54,sub=nil,skip=0,cof=0},
+	{name="Key_Period",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=55,sub=nil,skip=0,cof=0},
+	{name="Key_Question",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=56,sub=nil,skip=0,cof=0},
+	{name="Key_Ro",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=135,sub=nil,skip=0,cof=0},
+	{name="Key_RightShift",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=229,sub=nil,skip=0,cof=0},
+	{name="Key_CapsLock",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=57,sub=nil,skip=0,cof=0},
+	{name="Key_LeftOption",		lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=226,sub=nil,skip=0,cof=0},
+	{name="Key_LeftCommand",	lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=227,sub=nil,skip=0,cof=0},
+	{name="Key_Eisu",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=145,sub=nil,skip=0,cof=0},
+	{name="Key_Space",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=44,sub=nil,skip=0,cof=0},
+	{name="Key_Kana",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=144,sub=nil,skip=0,cof=0},
+	{name="Key_RightCommand",	lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=231,sub=nil,skip=0,cof=0},
+	{name="Key_fn",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=3,sub=nil,skip=0,cof=0},
+	{name="Key_Left",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=80,sub=nil,skip=0,cof=0},
+	{name="Key_Up",				lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=82,sub=nil,skip=0,cof=0},
+	{name="Key_Down",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=81,sub=nil,skip=0,cof=0},
+	{name="Key_Right",			lower=1,upper=1,unit="",entry=ItemKeyPressTimes,parameter=79,sub=nil,skip=0,cof=0},
+};
+local KeyTestItem_JIS={name="Keyboard Test",entry=ItemKeyPressTest,parameter=15000,sub=KeyTestSub_JIS};
+
+if ProductType == "ANSI" then
+	items = {
+		InitTestItem,
+		VoltageItem,
+		CurrentItem,
+		SpaceItem,	
+		FunctionItem,			
+		KeyTestItem_ANSI,
+	};
+end
+if ProductType == "JIS" then
+	items = {
+		InitTestItem,
+		VoltageItem,
+		CurrentItem_JIS,
+		SpaceItem_JIS,
+		FunctionItem,		
+		KeyTestItem_JIS,
+	};
+end
+if ProductType == "ISO_H" then
+	items = {
+		InitTestItem,
+		VoltageItem_ISO,
+		CurrentItem,
+		SpaceItem,	
+		FunctionItem_ISO_H,			
+		KeyTestItem_ISO,
+	};
+end
+if ProductType == "ISO_L" then
+	items = {
+		InitTestItem,
+		VoltageItem_ISO,
+		CurrentItem,
+		SpaceItem,	
+		FunctionItem_ISO_L,			
+		KeyTestItem_ISO,
+	};
+end
+
+
+
+

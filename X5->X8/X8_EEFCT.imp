@@ -1,0 +1,1412 @@
+
+local vTable = {};
+local cTable = {};
+local HallTable = {};
+local global_SN = nil;
+local TestVoltage = nil;
+local TestCurrent = nil;
+local Testflag = nil;
+local tab = {};
+local ProductPID = 0x0279 --PID
+local Current_G3 = nil;
+local __EEcode = "";
+local KeyboardType_EEECode = "";
+-------------------------------------keyboard-------------------------------------
+local Keyboard_Name = {
+						   [0] = "ANSI",
+						   [1] = "ISO",
+						   [2] = "JIS",
+					  };
+
+local Keyboard_Type = {
+						   ANSI = 0,
+						   ISO  = 1,
+						   JIS  = 2,
+					  };
+
+local Product_Name = {
+						  [0] = "X209",
+						  [1] = "X602",
+						  [2] = "X530",
+						  [3] = "X396",
+						  [4] = "X816",
+					 };
+
+local Keyboard_Product = {
+							X209 = 0, 
+							X602 = 1,
+							X530 = 2,
+							X396 = 3,
+							X816 = 4,
+				   	     };
+ProductName   = tostring(PRODUCT:GetProductType()); --string
+ProductIndex  = tonumber(Keyboard_Product[ProductName]);
+KeyboardIndex = tonumber(tc.GetKeyboardType());
+KeyboardName  = tostring(Keyboard_Name[KeyboardIndex]);
+Keyboard_Type_index = tonumber(tc.GetKeyboardType())+1;
+
+local keypressEnd = false;
+local FixtureStop = false;
+limit_Upper = 1;
+limit_Lower = 1;
+
+
+local Keyboard_Title = {
+							[0] = "Key Press Left Top Test",    [1] = "Key Press Top Centre Test",   [2] = "Key Press Right Top Test",
+							[3] = "Key Press Left Centre Test", [4] = "Key Press Centre Centre Test",[5] = "Key Press Right Centre Test",
+							[6] = "Key Press Left Bottom Test", [7] = "Key Press Bottom Centre Test",[8] = "Key Press Right Bottom Test",
+					   };
+
+Position_Name = {		
+				      [0] = "LT", [1] = "TC", [2] = "RT",       --//Left Top     //Top Center    //Right Top
+
+				      [3] = "LC", [4] = "CC", [5] = "RC",       --//Left Center  //Center Center //Right Center
+
+				      [6] = "LB", [7] = "BC", [8] = "RB",       --//Left Bottom  //Bottom Center //Right Bottom
+				};
+
+Position_Index = {		
+				    LT=0,   TC=1,   RT=2,       --//Left Top     //Top Center    //Right Top
+
+				    LC=3,   CC=4,   RC=5,       --//Left Center  //Center Center //Right Center
+
+				    LB=6,   BC=7,   RB=8,       --//Left Bottom  //Bottom Center //Right Bottom
+				 };
+
+local KeyPress_Cmd = {
+						[0] = "KPRESS_LT\r\n", [1] = "KPRESS_TC\r\n", [2] = "KPRESS_RT\r\n",
+						[3] = "KPRESS_LC\r\n", [4] = "KPRESS_CC\r\n", [5] = "KPRESS_RC\r\n",
+						[6] = "KPRESS_LB\r\n", [7] = "KPRESS_BC\r\n", [8] = "KPRESS_RB\r\n",
+				  	 };
+
+local Key_Name = {
+
+				ANSI  =	{
+							CC = {
+								    "Esc","F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12","Power",
+								    "Tilde","Num1","Num2","Num3","Num4","Num5","Num6","Num7","Num8","Num9","Num0","Minus","Equal","Delete",
+								    "Tab","Q","W","E","R","T","Y","U","I","O","P","LeftBracket","RightBracket","BackSlash",
+								    "CapsLock","A","S","D","F","G","H","J","K","L","Semicolon","Quote","Return",
+								    "LeftShift","Z","X","C","V","B","N","M","Comma","Period","Question","RightShift",
+								    "Fn","Control","LeftOption","LeftCommand","Space","RightCommand","RightOption","Left","Up","Down","Right",
+								  
+								 },
+							LT = {
+									"SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset",
+									"Delete","Tab","CapsLock","Return","LeftShift","RightShift","LeftCommand","Space","RightCommand",
+								 },
+							RT = {
+									"SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset",
+									"Delete","Tab","CapsLock","Return","LeftShift","RightShift","LeftCommand","Space","RightCommand",
+								 },
+							RB = {
+									"SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset",
+									"Delete","Tab","CapsLock","Return","LeftShift","RightShift","LeftCommand","Space","RightCommand",
+								 },
+							LB = {
+									"SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset",
+									"Delete","Tab","CapsLock","Return","LeftShift","RightShift","LeftCommand","Space","RightCommand",
+								 },
+				  		},  
+				ISO  =	{
+							--"Num1","Quote","Question"
+							CC = {
+								    "Esc","F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12","Power",
+								    "ISO","Num1","Num2","Num3","Num4","Num5","Num6","Num7","Num8","Num9","Num0","Minus","Equal","Delete",
+								    "Tab","Q","W","E","R","T","Y","U","I","O","P","LeftBracket","RightBracket","Return",
+								    "CapsLock","A","S","D","F","G","H","J","K","L","Semicolon","Quote","BackSlash","NULL",
+								    "LeftShift","Tilde","Z","X","C","V","B","N","M","Comma","Period","Question","RightShift",
+								    "Fn","Control","LeftOption","LeftCommand","Space","RightCommand","RightOption","Left","Up","Down","Right",
+								  
+								 },
+							LT = {
+									"SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset",
+									"Delete","Tab","CapsLock","LeftShift","RightShift","LeftCommand","Space","RightCommand",
+								 },
+							RT = {
+									"SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset",
+									"Delete","Tab","CapsLock","LeftShift","RightShift","LeftCommand","Space","RightCommand",
+								 },
+							RB = {
+									"SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset",
+									"Delete","Tab","CapsLock","LeftShift","RightShift","LeftCommand","Space","RightCommand",
+								 },
+							LB = {
+									"SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset",
+									"Delete","Tab","CapsLock","LeftShift","RightShift","LeftCommand","Space","RightCommand",
+								 },
+				  		},    
+				JIS  =	{
+							CC = {
+								    "Esc","F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12","Power",
+								    "Num1","Num2","Num3","Num4","Num5","Num6","Num7","Num8","Num9","Num0","Minus","Tilde","Yen","Delete",
+								    "Tab","Q","W","E","R","T","Y","U","I","O","P","At","LeftBracket","Return",
+								    "Control","A","S","D","F","G","H","J","K","L","Semicolon","Colon","RightBracket","NULL",
+								    "LeftShift","Z","X","C","V","B","N","M","Comma","Period","Question","Ro","RightShift",
+								    "CapsLock","LeftOption","LeftCommand","Eisu","Space","Kana","RightCommand","Fn","Left","Up","Down","Right",
+								   
+							     },
+							LT = {
+									"SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset",
+									"Num1","Return","Control","LeftShift","RightShift","LeftCommand","Eisu","Space","Kana","RightCommand",
+								 },
+							RT = {
+									"SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset",
+									"Num1","Return","Control","LeftShift","RightShift","LeftCommand","Eisu","Space","Kana","RightCommand",
+								 },
+							RB = {
+									"SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset",
+									"Num1","Return","Control","LeftShift","RightShift","LeftCommand","Eisu","Space","Kana","RightCommand",
+								 },
+							LB = {
+									"SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset","SMC_Reset",
+									"Num1","Return","Control","LeftShift","RightShift","LeftCommand","Eisu","Space","Kana","RightCommand",
+								 },
+				  		},
+            };
+
+
+local Key_Code = {   -- It is possible to combine ANSI ISO JIS to one table ?
+			        ANSI= {
+			                  Esc=41,F1=58,F2=59,F3=60,F4=61,F5=62,F6=63,F7=64,F8=65,F9=66,F10=67,F11=68,F12=69,Power=1,
+			                  Tilde=53,Num1=30,Num2=31,Num3=32,Num4=33,Num5=34,Num6=35,Num7=36,Num8=37,Num9=38,Num0=39,Minus=45,Equal=46,Delete=42,
+			                  Tab=43,Q=20,W=26,E=8,R=21,T=23,Y=28,U=24,I=12,O=18,P=19,LeftBracket=47,RightBracket=48,BackSlash=49,
+			                  CapsLock=57,A=4,S=22,D=7,F=9,G=10,H=11,J=13,K=14,L=15,Semicolon=51,Quote=52,Return=40,NULL = 255,
+			                  LeftShift=225,Z=29,X=27,C=6,V=25,B=5,N=17,M=16,Comma=54,Period=55,Question =56,RightShift=229,
+			                  Fn=3,Control=224,LeftOption=226,LeftCommand=227,Space=44,RightCommand=231,RightOption=230,Left=80,Up=82,Down=81,Right=79,
+			                  SMC_Reset=nil,
+			              }, 
+
+			        ISO = {
+			                  Esc=41,F1=58,F2=59,F3=60,F4=61,F5=62,F6=63,F7=64,F8=65,F9=66,F10=67,F11=68,F12=69,Power=1,
+			                  ISO=100,Num1=30,Num2=31,Num3=32,Num4=33,Num5=34,Num6=35,Num7=36,Num8=37,Num9=38,Num0=39,Minus=45,Equal=46,Delete=42,
+			                  Tab=43,Q=20,W=26,E=8,R=21,T=23,Y=28,U=24,I=12,O=18,P=19,LeftBracket=47,RightBracket=48,Return=40,
+			                  CapsLock=57,A=4,S=22,D=7,F=9,G=10,H=11,J=13,K=14,L=15,Semicolon=51,Quote=52,BackSlash=49,NULL = 255,
+			                  LeftShift=225,Tilde=53,Z=29,X=27,C=6,V=25,B=5,N=17,M=16,Comma=54,Period=55,Question =56,RightShift=229,
+			                  Fn=3,Control=224,LeftOption=226,LeftCommand=227,Space=44,RightCommand=231,RightOption=230,Left=80,Up=82,Down=81,Right=79,
+			                  SMC_Reset=nil,
+
+			              },
+
+			        JIS = {
+			        			-- need to be confirmed
+								Esc=41,F1=58,F2=59,F3=60,F4=61,F5=62,F6=63,F7=64,F8=65,F9=66,F10=67,F11=68,F12=69,Power=1,
+								Num1=30,Num2=31,Num3=32,Num4=33,Num5=34,Num6=35,Num7=36,Num8=37,Num9=38,Num0=39,Minus=45,Tilde=46,Yen=137,Delete=42,
+								Tab=43,Q=20,W=26,E=8,R=21,T=23,Y=28,U=24,I=12,O=18,P=19,At=47,LeftBracket=48,Return=40,
+								Control=224,A=4,S=22,D=7,F=9,G=10,H=11,J=13,K=14,L=15,Semicolon=51,Colon=52,RightBracket=49,NULL=255,
+								LeftShift=225,Z=29,X=27,C=6,V=25,B=5,N=17,M=16,Comma=54,Period=55,Question=56,Ro=135,RightShift=229,
+								CapsLock=57,LeftOption=226,LeftCommand=227,Eisu=145,Space=44,Kana=144,RightCommand=231,Fn=3,Left=80,Up=82,Down=81,Right=79,
+								SMC_Reset=nil,
+
+			              }              
+      				};
+
+local Key_Title = {   -- It is possible to combine ANSI ISO JIS to one table ?
+			        ANSI= {  -- No used， if use need to confirm the relation
+			                  Esc="esc",F1="F1",F2="F2",F3="F3",F4="F4",F5="F5",F6="F6",F7="F7",F8="F8",F9="F9",F10="F10",F11="F11",F12="F12",Power="power",
+							  Tilde="~\n`",Num1="!\n1",Num2="@\n2",Num3="#\n3",Num4="$\n4",Num5="%\n5",Num6="^\n6",Num7="&\n7",Num8="*\n8",Num9="(\n9",Num0=")\n0",Minus="_\n-",Equal="+\n=",Delete="delete",
+							  Tab="tab",Q="Q",W="W",E="E",R="R",T="T",Y="Y",U="U",I="I",O="O",P="P",LeftBracket="{\n[",RightBracket="}\n]",BackSlash="|\n\\",
+							  CapsLock="caps lock",A="A",S="S",D="D",F="F",G="G",H="H",J="J",K="K",L="L",Semicolon=":\n;",Quote="\"\n'",Return="enter\nreturn",
+							  LeftShift="shift",Z="Z",X="X",C="C",V="V",B="B",N="N",M="M",Comma="<\n,",Period=">\n.",Question="?\n/",RightShift="shift",
+							  Fn="fn",Control="control",LeftOption="option",LeftCommand="command",Space="",RightCommand="command",RightOption="option",Left="left",Up="up",Down="down",Right="right",
+			              }, 
+			        ISO = {
+			                  Esc="esc",F1="F1",F2="F2",F3="F3",F4="F4",F5="F5",F6="F6",F7="F7",F8="F8",F9="F9",F10="F10",F11="F11",F12="F12",Power="power",
+							  ISO="±\n§",Num1="!\n1",Num2="@\n2",Num3="#\n3",Num4="$\n4",Num5="%\n5",Num6="^\n6",Num7="&\n7",Num8="*\n8",Num9="(\n9",Num0=")\n0",Minus="_\n-",Equal="+\n=",Delete="delete",
+							  Tab="tab",Q="Q",W="W",E="E",R="R",T="T",Y="Y",U="U",I="I",O="O",P="P",LeftBracket="{\n[",RightBracket="}\n]",BackSlash="|\n\\",
+							  CapsLock="caps lock",A="A",S="S",D="D",F="F",G="G",H="H",J="J",K="K",L="L",Semicolon=":\n;",Quote="\"\n'",Return="enter\nreturn",
+							  LeftShift="shift",Tilde="~\n`",Z="Z",X="X",C="C",V="V",B="B",N="N",M="M",Comma="<\n,",Period=">\n.",Question="?\n/",RightShift="shift",
+							  Fn="fn",Control="control",LeftOption="option",LeftCommand="command",Space="",RightCommand="command",RightOption="option",Left="left",Up="up",Down="down",Right="right",
+						   },
+
+			        JIS = {
+			        			-- need to be confirmed
+			        			Esc="esc",F1="F1",F2="F2",F3="F3",F4="F4",F5="F5",F6="F6",F7="F7",F8="F8",F9="F9",F10="F10",F11="F11",F12="F12",Power="power",
+								Num1="!\n1",Num2="@\n2",Num3="#\n3",Num4="$\n4",Num5="%\n5",Num6="^\n6",Num7="&\n7",Num8="*\n8",Num9="(\n9",Num0=")\n0",Minus="_\n-",Tilde="~\n`",Yen="|\n",Delete="delete",
+								Tab="tab",Q="Q",W="W",E="E",R="R",T="T",Y="Y",U="U",I="I",O="O",P="P",At="`",LeftBracket="{\n[",Return="enter\nreturn",
+								Control="control",A="A",S="S",D="D",F="F",G="G",H="H",J="J",K="K",L="L",Semicolon=":\n;", Colon="け",RightBracket="}\n]",NULL="",
+								LeftShift="shift",Z="Z",X="X",C="C",V="V",B="B",N="N",M="M",Comma="<\n,",Period=">\n.",Question="?\n/",Ro="ろ",RightShift="shift",
+								CapsLock="caps\nlock",LeftOption="option",LeftCommand="command",Eisu="英数",Space="",Kana="かな",RightCommand="command",Fn="fn",Left="left",Up="up",Down="down",Right="right",
+			              },              
+      				};
+
+local Key_Width = {
+					ANSI = {
+								Esc = "1.6",
+								Delete = "1.6",
+								Tab = "1.6",
+								CapsLock = "1.9",Return = "1.9",
+								LeftShift = "2.5",RightShift = "2.5",
+								LeftCommand = "1.3",Space = "5.8",RightCommand = "1.3",
+					       },
+
+					ISO = {
+								
+								Esc = "1.6",
+								Delete = "1.6",
+								Tab = "1.6",
+								CapsLock = "1.9",
+								NULL = "0.7",
+								LeftShift = "1.3",RightShift = "2.5",
+								LeftCommand = "1.3",Space = "5.8",RightCommand = "1.3",
+					      },
+
+					JIS = {
+								Esc = "1.6",
+								Num1 = "1.6",
+								Return = "1.6",
+								Control = "1.3",
+								NULL = "1.3",
+								LeftShift = "1.9",RightShift = "1.9",
+								LeftCommand = "1.3",Eisu = "1.3",Space = "4",Kana = "1.3",RightCommand = "1.3",
+						  }
+				   };
+
+local Key_Hight = {
+				  	  ANSI = {
+				  	  			Power = "0.5";
+				  	  			Delete = "1";
+				  	  			BackSlash = "1";
+				  	  			Return = "1";
+				  	  			RightShift = "1";
+				  	  			Right = "1.1";
+				  	  		 },
+
+				  	  ISO = {
+				  	  			Power = "0.5";
+				  	  			Delete = "1";
+				  	  			Return = "1";
+				  	  			NULL = "1";
+				  	  			RightShift = "1";
+				  	  			Right = "1.1";
+				  	  		 },
+
+				  	  JIS = {
+				  	  			Power = "0.5";
+				  	  			Delete = "1";
+				  	  			Return = "1";
+				  	  			NULL = "1";
+				  	  			RightShift = "1";
+				  	  			Right = "1.1";
+				  	  		 },
+				  };
+--Get key press times
+function KeyPressTimes(par)
+	return KEYBOARD:GetPointPressClick(par.Scancode,par.Position)
+end	
+
+local KeyPressTestSub_F_Special = {
+									  ANSI = {
+													CC = {
+									 					{name="KeyPress Power", lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Position=Position_Index.CC,Scancode=Key_Code["ANSI"].Power}, sub=nil, skip = 1,visible = 0,KeyHight = "0.5"},
+								 					--	{name="KeyPress BackSlash BC", lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Position=Position_Index.BC,Scancode=Key_Code["ANSI"].BackSlash,Enable=true}, sub=nil, Remark="BackSlash"},
+								 					--	{name="KeyPress Up LB", lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Scancode=Key_Code["ANSI"].Up}, sub=nil, skip=1, visible=0},
+									 				 },
+
+									 			-- LT = {
+									 			-- 		{name="KeyPress Tilde TC", lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Position=Position_Index.TC,Scancode=Key_Code["ANSI"].Tilde, Enable=true}, sub=nil, Remark="Tilde"},
+								 				-- 		{name="KeyPress BackSlash TC", lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Position=Position_Index.TC,Scancode=Key_Code["ANSI"].BackSlash, Enable=true}, sub=nil, Remark="BackSlash"},
+								 				-- 		{name="KeyPress Down LT", lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Scancode=Key_Code["ANSI"].Down}, sub=nil, skip=1, visible=0},
+									 			-- 	 },
+									 			-- RT = {
+													-- 	{name="KeyPress Tilde RT", lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Scancode=Key_Code["ANSI"].Tilde}, sub=nil, skip=1, visible=0},				 						
+								 				-- 		{name="KeyPress BackSlash RT", lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Scancode=Key_Code["ANSI"].BackSlash}, sub=nil, skip=1, visible=0},
+									 			-- 	 	{name="KeyPress Down RT", lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Scancode=Key_Code["ANSI"].Down}, sub=nil, skip=1, visible=0},
+									 				 
+									 			-- 	 },
+									 			-- RB = {
+									 			-- 		{name="KeyPress Tilde RB", lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Scancode=Key_Code["ANSI"].Tilde}, sub=nil, skip=1, visible=0},
+									 			-- 	 	{name="KeyPress BackSlash RB", lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Scancode=Key_Code["ANSI"].BackSlash}, sub=nil, skip=1, visible=0},
+									 			-- 	 	{name="KeyPress Up RB", lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Scancode=Key_Code["ANSI"].Up}, sub=nil, skip=1, visible=0},									 		
+									 			-- 	 },
+									 			-- LB = {
+									 			-- 		{name="KeyPress Tilde BC", lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Position=Position_Index.BC,Scancode=Key_Code["ANSI"].Tilde,Enable=true}, sub=nil, Remark="Tilde"},
+								 				-- 		{name="KeyPress BackSlash BC", lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Position=Position_Index.BC,Scancode=Key_Code["ANSI"].BackSlash,Enable=true}, sub=nil, Remark="BackSlash"},
+								 				-- 		{name="KeyPress Up LB", lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Scancode=Key_Code["ANSI"].Up}, sub=nil, skip=1, visible=0},
+									 			-- 	 },
+
+											},
+									  ISO = {
+									  			CC = {
+									 					{name="KeyPress Power", lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Position=Position_Index.CC,Scancode=Key_Code["ANSI"].Power}, sub=nil, skip = 1,visible = 0,KeyHight = "0.5"},
+								 					--	{name="KeyPress BackSlash BC", lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Position=Position_Index.BC,Scancode=Key_Code["ANSI"].BackSlash,Enable=true}, sub=nil, Remark="BackSlash"},
+								 					--	{name="KeyPress Up LB", lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Scancode=Key_Code["ANSI"].Up}, sub=nil, skip=1, visible=0},
+									 				 },
+									 			-- LT = {
+
+									 			-- 	 },
+									 			-- RT = {
+
+									 			-- 	 },
+									 			-- RB = {
+
+									 			-- 	 },
+									 			-- LB = {
+
+									 			-- 	 },
+											},
+									  JIS = {
+									  			CC = {
+									 					{name="KeyPress Power", lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Position=Position_Index.CC,Scancode=Key_Code["ANSI"].Power}, sub=nil, skip = 1,visible = 0,KeyHight = "0.5"},
+								 					--	{name="KeyPress BackSlash BC", lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Position=Position_Index.BC,Scancode=Key_Code["ANSI"].BackSlash,Enable=true}, sub=nil, Remark="BackSlash"},
+								 					--	{name="KeyPress Up LB", lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Scancode=Key_Code["ANSI"].Up}, sub=nil, skip=1, visible=0},
+									 				 },
+									 			-- LT = {
+
+									 			-- 	 },
+									 			-- RT = {
+
+									 			-- 	 },
+									 			-- RB = {
+
+									 			-- 	 },
+									 			-- LB = {
+
+									 			-- 	 },
+											},
+								  };
+
+function GetKeyPressTestSubByPos(Pro_Inx,Board_Name,Pos_Index)
+	local tbl_KeyPressTestSub = {};
+	local ItemCount = 1;
+	local IsNoFnKeys = ((Pro_Inx == Keyboard_Product.X209) or (Pro_Inx == Keyboard_Product.X602) or (Pro_Inx == Keyboard_Product.X396));
+	-- MessageBox(tostring(par_POS))
+	if Pos_Index == Position_Index.CC then
+		local KeyNameTable = Key_Name[Board_Name][Position_Name[Pos_Index]];
+		if KeyNameTable == nil then
+			msgbox("Error","Do not containt keyname table for position"..Position_Name[Pos_Index],nil,nil,nil);
+			return;
+		end
+		for i,v in ipairs(KeyNameTable) do	
+
+			if not (IsNoFnKeys and i < 15) then
+				local ScanCode = Key_Code[Board_Name][v];
+				local OneItem = {name="KeyPress "..tostring(v), lower=limit_Lower, upper=limit_Upper, unit="",entry=KeyPressTimes, parameter={Position=Pos_Index,Scancode=ScanCode,Enable=true}, sub=nil, KeyTitle=Key_Title[Board_Name][v], Remark=tostring(v)};--Key_Title[Board_Name][v]  .." "..Position_Name[Pos_Index]--tostring(ItemCount)
+	
+				if Key_Width[Board_Name][v] ~= nil then
+					OneItem["KeyWidth"] = Key_Width[Board_Name][v];
+				end
+
+				if Key_Hight[Board_Name][v] ~= nil then
+					OneItem["KeyHight"] = Key_Hight[Board_Name][v];
+				end
+
+				if ScanCode == Key_Code[Board_Name].NULL then
+					OneItem["skip"] = 1;
+					OneItem["visible"] = 0;
+					OneItem["KeyTitle"] = "";
+				else
+					ItemCount = ItemCount + 1;
+				end
+
+				tbl_KeyPressTestSub[#tbl_KeyPressTestSub+1] = OneItem;
+			end
+
+	    end
+	else
+		local KeyNameTable = Key_Name[Board_Name][Position_Name[Pos_Index]];
+		if KeyNameTable == nil then
+			msgbox("Error","Do not containt keyname table for position"..Position_Name[Pos_Index],nil,nil,nil);
+			return;
+		end
+		for i,v in ipairs(KeyNameTable) do	
+			if not (IsNoFnKeys and i < 15) then
+				local ScanCode = Key_Code[Board_Name][v];
+				local OneItem = {name="KeyPress "..tostring(v), lower=limit_Lower, upper=limit_Upper, unit="", entry=KeyPressTimes, parameter={Position=Pos_Index, Scancode=ScanCode, Enable=true }, sub=nil, Remark=tostring(v)};
+
+				if ScanCode == Key_Code[Board_Name].NULL then
+					OneItem["skip"] = 1;
+					OneItem["visible"] = 0;
+				end
+
+				tbl_KeyPressTestSub[#tbl_KeyPressTestSub+1] = OneItem;
+			end
+		end
+	end
+
+	----do with special condition 
+	local Special_Point = KeyPressTestSub_F_Special[Board_Name][Position_Name[Pos_Index]];
+	if Special_Point and (#Special_Point ~= 0) then
+		for i,v in ipairs(Special_Point) do
+			local Code = v.parameter.Scancode;
+			for j,w in ipairs(tbl_KeyPressTestSub) do
+				if w.parameter.Scancode == Code then
+					tbl_KeyPressTestSub[j] = v;
+				end
+			end
+		end
+	end
+
+	return tbl_KeyPressTestSub;
+end
+
+
+function InitialKeyboardView(ItemTable,Pro_Inx,Board_Inx)
+
+	local KeyRowDataArray = {};
+	local KeyAllDataArray = {};
+	KEYBOARD:SetKeyboardEnabled(true,false,false);--text color image
+
+	for index,value in ipairs(ItemTable) do
+		if string.dump(value.entry) == string.dump(KeyPressTimes) then
+			if value.KeyWidth == nil then
+				value.KeyWidth = "1";
+			end
+
+			if value.KeyTitle == nil then
+				value.KeyTitle = "Power";
+			end
+
+			if value.KeyHight ~= nil then
+				KeyRowDataArray[#KeyRowDataArray+1] = tostring(value.parameter.Scancode).."DataChar"..tostring(value.KeyWidth).."DataChar"..tostring(value.KeyTitle).."HightChar"..tostring(value.KeyHight);
+				local KeyRowDataStr = table.concat(KeyRowDataArray,"KeyChar");
+				KeyAllDataArray[#KeyAllDataArray+1] = KeyRowDataStr;
+				KeyRowDataArray = {};
+			else
+				KeyRowDataArray[#KeyRowDataArray+1] = tostring(value.parameter.Scancode).."DataChar"..tostring(value.KeyWidth).."DataChar"..tostring(value.KeyTitle);
+			end
+		end
+	end
+
+	local KeyAllDataStr = table.concat(KeyAllDataArray,"RowChar");
+	KEYBOARD:SetKeyboardViewAndShow(Pro_Inx,Board_Inx,KeyAllDataStr,true);
+end
+-----------
+function InitKeyPressTest()
+	KEYBOARD:BeginTest();
+	KEYBOARD:clearKeyPress();
+end
+
+--stop test key press
+function KeyPressTestEnd()
+	KEYBOARD:EndTest();
+end
+
+function InitPointAndPressWithPar(pars)
+
+	if not KEYBOARD:isClose() then
+		KEYBOARD:setWindowTitle(Keyboard_Title[pars.Position]);
+		for i,v in ipairs(pars.ParTable) do
+			if string.dump(v.entry) == string.dump(KeyPressTimes) then
+				if v.skip ~= 1 and v.skip ~= true and v.visible ~= 0 and v.visible ~= false then
+					if v.parameter.Scancode == Key_Code[KeyboardName].NULL then
+						msgbox("Warning","Please set \"skip=1,visible=0\" at this item",nil,nil,nil);
+					end
+					KEYBOARD:SetPointLimit(v.parameter.Scancode,v.parameter.Position,v.lower,v.upper);
+					KEYBOARD:SetPointPositionAndEnable(v.parameter.Scancode,v.parameter.Position,v.parameter.Enable);
+				end
+			end
+		end
+
+		PACSocket:TCPSendString("keytest");
+	end
+
+	local timeout = tonumber(pars.timeout);
+	print("timeout",timeout)
+	if timeout < 1 then
+		timeout = 3;
+	end
+
+	local now = Now();    -- when there is globle function ,use globle function but not bundle function
+	local starttime = now;
+	while true do
+		if KEYBOARD:isClose() then
+			break;
+		end
+
+		if KEYBOARD:isCancelled() then
+			break;
+		end
+
+		if KEYBOARD:isAllPressed() then
+			print("isAllPressed");
+			break;
+		end
+
+		local ret = PACSocket:TCPReadString();
+		if ret ~= nil and string.len(ret)>0 then
+			break;
+		end
+
+		now=Now(); 
+		if now-starttime > timeout then
+			break;
+		end
+        Delay(500);
+	end
+
+	KEYBOARD:UpdateKeyboardView(true);--isFailKeysOnly
+end
+
+
+--------------------Gerneral Function Start------------------------
+--Initial function for startup test,you can add test initial code in here	
+function Test_OnEntry(par)
+
+	--DbgOut("Test_OnEntry!");
+	global_SN = tc.mlbSN();
+	__EEcode = string.sub(global_SN,12,15);
+	ProductPID = PRODUCT:GetProductPID();
+end
+
+--Clear function for test failed,you can add clear function code in here when test failed.
+function Test_OnFail(par)	
+
+end
+
+--Clear function for normal test finish.you can add clear function code in there when test normally finish.
+function Test_OnDone(par)
+
+end
+
+function Test_OnAbort()
+	DbgOut("Test_OnAbort!");
+	local ret1 = PACSocket:TCPSendReceive("test FAIL",3000,"\n");
+	local ret2 = PACSocket:TCPSendReceive("testdone PASS",3000,"\n");
+	if (ret1 == nil) or (ret2 == nil) then
+		msgbox("PACSocket","Exit error!!!",nil,nil,nil);
+		return -1;
+	else 
+		if(#ret1 and #ret2) then
+			return 0;
+		else
+			msgbox("PACSocket","Exit error!!!",nil,nil,nil);
+			return -1;
+		end
+	end
+end
+
+--------------------Gerneral Function End------------------------
+
+--------------------Power Control Function Start--------------
+function PowerOn()
+	DbgOut("Power on!");
+end
+
+function PowerOff()
+	DbgOut("Power off!");
+end
+
+
+--------------------Power Control Function End--------------
+
+--------------------TestItem Function Start---------------
+function p3keyOn()
+	PACSocket:TCPSendReceive("wio 11 22 1",3000,"\n");
+	PACSocket:TCPSendReceive("wio 11 25 1",3000,"\n");
+ 	PACSocket:TCPSendReceive("wio 11 26 1",3000,"\n");
+end
+
+function p3keyOff()
+	 PACSocket:TCPSendReceive("wio 11 22 0",3000,"\n");
+	 PACSocket:TCPSendReceive("wio 11 25 0",3000,"\n");
+	 PACSocket:TCPSendReceive("wio 11 26 0",3000,"\n");
+end
+
+function ItemcheckEEPROM()
+
+    local ret = INTERFACE:Call_EEPROM_Check(ProductPID,global_SN);
+    Delay(50);
+    local wt = INTERFACE:Call_EEPROM_Check(ProductPID,global_SN);
+    if ret == 0 or wt == 0 then
+    	return 0;
+    else
+    	return ret;
+    end
+end
+
+function ItemCheckSFCBinCode()
+
+    local ret = product.GetProductBinCode()
+    if ret ~= nil then	
+    	return ret;
+    else
+		return "","Get Color Bin Code ";
+    end
+end
+
+function ResetLEDEnable(par)
+
+	local ret = INTERFACE:Call_Get_LEDs_ResetValue_J122(ProductPID,global_SN,par);
+	if ret ~= nil then
+		Delay(1000);
+	 	return ret ;
+	else
+		Delay(1000);
+	 	return nil,"nil";
+	end
+	
+end
+
+function CheckLEDEnableStatus(par)
+	Delay(300);
+	local ret = INTERFACE:Call_Get_LEDs_Read_ENABLE_TBL_J122(ProductPID,global_SN,par);
+	Delay(300);
+	if ret ~= nil then
+	 	return ret ;
+	else
+	 	return nil,"nil";
+	end
+	
+	
+end
+
+function CheckEEPROMData(par)
+	local ret = INTERFACE:Call_EEPROMDATA_Check(ProductPID,global_SN,par);
+	if ret ~= nil then
+	 	return ret ;
+	else
+	 	return nil,"nil";
+	end
+	
+	
+end
+
+function ItemcheckBL()
+    local ret = INTERFACE:Call_Check_BL_Status(ProductPID,global_SN);
+    Delay(50);
+    local wt  = INTERFACE:Call_Check_BL_Status(ProductPID,global_SN);
+    if (ret == 0) or (wt == 0) then
+    	return 0;
+    else
+    	return ret;
+    end
+end
+
+function ItemcheckFWVersion(pars)
+	--pars is something like 0x0834 or 0x0852 etc number
+	local str_ret = string.format("0x%04x",pars);
+    local ret = INTERFACE:Call_FW_Version_Check(ProductPID,global_SN,pars);
+    -- msgbox("AAAA"..tostring(ret),"OK",nil,nil,nil);
+    if ret == 0 then
+    	return str_ret;
+    else
+    	return ret;
+    end
+end
+
+function ItemLEDTurnOn()
+
+	local ret = INTERFACE:Call_LEDs_On(ProductPID,global_SN);
+	Delay(50);
+	local wt  = INTERFACE:Call_Caps_on(ProductPID,global_SN);
+	if ret ==0 and wt ==0 then
+		return 0;
+	else
+		return "Light LED failed！";
+	end
+end
+
+
+function  ItemLEDturnoff()
+
+	INTERFACE:Call_LEDs_Off(ProductPID,global_SN);
+	Delay(50);
+	INTERFACE:Call_Caps_off(ProductPID,global_SN);
+	return 0;
+
+end
+
+function GetResultFromPAC(cmd)
+
+	local ret = pacsocket.TCPSendReceive(cmd,3000,"\r\n");
+	if cmd == nil then
+		return -1,"null";
+	end
+	return ret;
+end
+
+function  fixtureOut()
+	local ret = pacsocket.TCPSendReceive("testdone?",3000,"\r\n");
+	local cmd = string.match(ret,"ACK_DONE");
+	DbgOut("fixtureOut:"..ret);
+	if cmd == nil then
+		return -1 ;
+	end
+	return 0;
+end
+
+function  ItemReadV(par)
+	
+	if TestVoltage == nil then
+		return nil
+	end
+	if par== "SMC_LID" then
+		local num =tonumber(vTable[1]);
+		return num;
+	end
+	if par== "SMC_ONOFF_L" then
+		local num =tonumber(vTable[2]);
+		return num;
+	end
+	if par== "SMC_LSOC_RS" then
+		local num =tonumber(vTable[3]);
+		return num;
+	end
+	if par== "PP5V_S0" then
+		local num =tonumber(vTable[4]);
+		return num;
+	end
+	if par== "PP3V3_S4" then
+		local num =tonumber(vTable[5]);
+		return num;
+	end
+	if par =="PP3V3_G3" then
+		local wt = MeasurePP3V3_G3("PP3V3_G3");
+		return wt ;
+	end
+
+	return -1,"par Error!";
+end
+
+function MeasurePP3V3_G3(par)
+	-- body
+	local total = 0;
+	local temp = 0;
+	local looptimes = 0
+	local ret = TCPSendReceive("emc ON");
+	if ret == nil  then
+		return "sned command emc ON fail";
+	end
+	Delay(10);
+	local ret = TCPSendReceive("p3key ON");
+	if ret ==nil then
+		return "send command p3key ON fail";
+	end
+	Delay(200);
+	local wt = measureVoltage(par);
+	Delay(50);
+	for i= 1,5 do
+		Delay(2);
+		local temp  = measureCurrent("PP3V3_G3H");
+			if temp ~= nil then
+					total = total+temp;
+					looptimes = looptimes +1;
+			end
+    end
+	Current_G3 = total/looptimes;
+	TCPSendReceive("p3key OFF");
+	Delay(20);
+	TCPSendReceive("emc OFF");
+	return wt ;
+end
+
+function  ItemReadC(par)
+	if TestCurrent == nil then
+		return nil
+	end
+	if par== "LED1" then
+		local num =tonumber(cTable[1]);
+		return num;
+	end
+	if par== "LED2" then
+		local num =tonumber(cTable[2]);
+		return num;
+	end
+	if par== "LED3" then
+		local num =tonumber(cTable[3]);
+		return num;
+	end
+	if par== "LED4" then
+		local num =tonumber(cTable[4]);
+		return num;
+	end
+	if par== "LED5" then
+		local num =tonumber(cTable[5]);
+		return num;
+	end
+	if par== "LED6" then
+		local num =tonumber(cTable[6]);
+		return num;
+	end
+	if par== "LED7" then
+		local num =tonumber(cTable[7]);
+		return num;
+	end
+	if par== "LED8" then
+		local num =tonumber(cTable[8]);
+		return num;
+	end
+	if par== "LED9" then
+		local num =tonumber(cTable[9]);
+		return num;
+	end
+	if par== "LED10" then
+		local num =tonumber(cTable[10]);
+		return num;
+	end
+	if par== "LED11" then
+		local num =tonumber(cTable[11]);
+		return num;
+	end
+	if par== "LED12" then
+		local num =tonumber(cTable[12]);
+		return num;
+	end
+	if par== "LED13" then
+		local num =tonumber(cTable[13]);
+		return num;
+	end
+	if par== "PP3V3_S4" then
+		local num =tonumber(cTable[14]);
+		return num;
+	end
+	if par== "PP5V_S0" then
+		local num =tonumber(cTable[15]);
+		return num;
+	end
+	if par =="PP3V3_G3H" then
+		if Current_G3 ==nil then
+			return "send command PP3V3_G3H fail";
+		end
+		return Current_G3 ;
+	end
+
+	return -1,"par Error!";
+end
+
+function CapacitorDischarge(par)
+	-- body
+		OnlySerialPort:ClearBuffer();
+		Delay(50);
+		OnlySerialPort:WriteString("S3 ON\r\n");
+		Delay(50);
+		OnlySerialPort:ClearBuffer();
+		OnlySerialPort:WriteString("JPM1 ON\r\n");
+		Delay(par);
+		OnlySerialPort:ClearBuffer();
+		OnlySerialPort:WriteString("S3 OFF\r\n");
+		Delay(50);
+		OnlySerialPort:ClearBuffer();
+		OnlySerialPort:WriteString("JPM1 OFF\r\n");
+
+end
+
+function ItemMeasureVoltage(par)
+	Delay(100);
+	local wt = measureVoltage(par);
+	if wt ==nil then
+		return "PAC read data is nil";
+	end
+	return wt;
+end
+
+function measureVoltage(par)
+
+	local cmd = "readv "..par;
+	local ret = PACSocket:TCPSendReceive(cmd,3000,"\n");
+	if ret == nil then 
+		return "send command fail:"..par;
+	end
+	if (#ret > 0 and ret ~= 0 )then
+		local tmpV = string.sub(ret,6,string.len(ret));
+		if tmpV == nil then
+			return "match TestVoltage error";
+		end
+		local tmpV_d = tonumber(tmpV);
+		return tmpV_d ;
+	else
+		return "Voltage is nil";
+	end
+end
+
+function measureCurrent(par)
+
+	local cmd = "readc "..par;
+	local ret = PACSocket:TCPSendReceive(cmd,3000,"\n");
+	if ret == nil then 
+		return nil;
+	end
+	if (#ret > 0 and ret ~= 0 )then
+		local tmpV = string.sub(ret,6,string.len(ret));
+		local tmpV_d = tonumber(tmpV);
+		return tmpV_d ;
+	else
+		return "return error";
+	end
+end
+
+function KBD_ID_DETECT(par)
+
+	Delay(100);
+	if par =="KBD_ID_DETECT_GND" then
+		OnlySerialPort:ClearBuffer();
+		OnlySerialPort:WriteString("CONNECT TO GND TEST\r\n");
+	end
+	if par =="KBD_ID_DETECT_3V3" then
+		 OnlySerialPort:ClearBuffer();
+		 OnlySerialPort:WriteString("CONNECT TO 3V3 TEST\r\n");
+	end
+		Delay(50);
+		local wt = measureVoltage("KBD_ID_DETECT");
+		OnlySerialPort:ClearBuffer();
+		Delay(150);
+		OnlySerialPort:WriteString("ALL KEY OFF\r\n");
+		return wt;
+end
+
+function ItemPowerKeyDown(par)
+	local ret = PACSocket:TCPSendReceive("powerkey ON",3000,"\n");
+	Delay(100);
+	local cmd = "readv "..par;
+	local ret = PACSocket:TCPSendReceive(cmd,1000,"\n");
+	if ret == nil then 
+		return nil
+	end
+	if #ret > 0 then
+		local tmpV = string.sub(ret,6,string.len(ret));
+		local tmpV_d = tonumber(tmpV);
+		return tmpV_d;
+	else
+		return 0;
+	end
+end
+
+function ItemPowerKeyUp1(par)
+
+	local ret = TCPSendReceive("p4key OFF");
+	if ret ==nil then
+		return "send command fail :p4key OFF";
+	end
+	local wt = measureVoltage(par);
+	return wt;
+
+end
+
+function ItemPowerKeyUp(par)
+	if Testflag ==nil  then
+		return nil;
+	end
+
+	if par == "SMC_ONOFF_L" then
+		local num = tonumber(tab[1]);
+		return num;
+	end
+
+	if par == "SMC_LSOC_RS" then
+		local num = tonumber(tab[2]);
+		return num;
+	end
+
+	if par == "SMC_LSOC_RST_L_BOOT" then
+		local num = tonumber(tab[3]);
+		return num;
+	end
+	
+	return -1,"par error";
+end
+
+function ItemPowerKeyUp_Test()
+	-- body
+	local ret =PACSocket:TCPSendReceive("readv SMC_ONOFF_L;SMC_LSOC_RS;SMC_LSOC_RST_L_BOOT",3000,"\n");
+	if ret == nil then
+		return nil;
+	end
+	if (string.len(ret)>0) then
+		local temp = string.sub(ret,6,string.len(ret));
+		--DbgOut(temp);
+		Testflag = 1;
+		tab = __split(temp,";");
+		return 0;
+	end
+
+end
+
+function ItemCom4Key(par)
+
+	local ret = TCPSendReceive("p4key ON");
+	if ret == nil then
+		return "send command fail:p4key ON";
+	end
+	Delay(500);
+	local wt =measureVoltage(par);
+	TCPSendReceive("p4key OFF");
+	return wt;
+
+end
+
+function ItemPower3Key(par)
+
+	local ret = TCPSendReceive("powerkey ON");
+	if ret == nil then
+		return "send combine command fail :powerkey ON";
+	end
+	Delay(100);
+	local wt = measureVoltage(par);
+	TCPSendReceive("powerkey OFF");
+	return wt;
+end
+
+function ItemRstKey(par)--LSOC keys up + Power key down
+	local ret = PACSocket:TCPSendReceive("powerkey ON",3000,"\n");
+	Delay(50);
+	local cmd = "readv "..par;
+	local ret = PACSocket:TCPSendReceive(cmd,1000,"\n");
+	PACSocket:TCPSendReceive("powerkey OFF",3000,"\n");
+	if ret == nil then 
+		return nil
+	end
+	if #ret > 0 then
+		local tmpV = string.sub(ret,6,string.len(ret));
+		local tmpV_d = tonumber(tmpV);
+		return tmpV_d;
+	else
+		return 0;
+	end
+end
+
+function ItemLedCheck()
+
+	local ret = PACSocket:TCPSendReceive("ledstatus",2000,"\n");
+	if ret == nil then 
+		return "get camera data error";
+	end
+	if #ret >0 then
+		ret = string.gsub(ret,"\n","");
+		ret = string.gsub(ret,"\r","");
+		DbgOut(ret);
+		if string.find(ret,"ACK_PASS") then
+			return "PASS";
+		else
+			return -1,ret;
+		end
+	end
+	-- ledstatus
+end
+
+function LedCheck()
+
+	if KeyboardName == "ANSI" or KeyboardName =="JIS" then
+		local ret = ItemLedCheck();
+		return ret;
+	else
+		local ret = SelfLedCheck();
+		return ret;
+	end
+end
+
+--readv SMC_LID;SMC_ONOFF_L;SMC_LSOC_RS;PP5V_S0;PP3V3_S4;PP3V3_G3
+function ReadvFunction(vtimeout)
+	local ret = PACSocket:TCPSendReceive("readv SMC_LID;SMC_ONOFF_L;SMC_LSOC_RS;PP5V_S0;PP3V3_S4;PP3V3_G3;",vtimeout,"\n");
+	if ret == nil then 
+		return nil
+	end
+	if (string.len(ret)>0) then
+		local tmpV = string.sub(ret,6,string.len(ret));
+		DbgOut(tmpV);
+		TestVoltage = 1
+		vTable = __split(tmpV,";");
+		return 0;
+	end
+end
+--readc LED1;LED2;LED3;LED4;LED5;LED6;LED7;LED8;LED9;LED10;LED11;LED12;LED13;PP3V3_S4;PP5V_S0
+function ReadcFunction(vtimeout)
+	local ret = PACSocket:TCPSendReceive("readc LED1;LED2;LED3;LED4;LED5;LED6;LED7;LED8;LED9;LED10;LED11;LED12;LED13;PP3V3_S4;PP5V_S0",vtimeout,"\n");
+	if ret == nil then 
+		return nil
+	end
+	if (string.len(ret)>0) then
+		local tmpC = string.sub(ret,6,string.len(ret));
+		DbgOut(tmpC);
+		TestCurrent = 1
+		cTable = __split(tmpC,";");
+		return 0;
+	end
+end
+function TCPSendReceive(pars)
+
+	local ret = PACSocket:TCPSendReceive(pars,3000,"\n");
+	return ret ;
+	
+end
+
+function MeasureVoltageOfHallSensor(par)
+
+	if par.flag=="SMC_LID_L_BOTH_OFF" then
+		TCPSendReceive("emc OFF");
+		Delay(200);
+		local wt = measureVoltage(par.sign);
+		return wt;
+	end
+
+	if par.flag=="SMC_LID_LEFT_OFF" then	
+		Delay(200);
+		local wt = measureVoltage(par.sign);
+		return wt;
+	end
+	if par.flag=="SMC_LID_LEFT_ON" then	
+		TCPSendReceive("leftemc ON");
+		Delay(200);
+		local wt = measureVoltage(par.sign);
+		return wt;
+	end
+	
+	if par.flag=="SMC_LID_L_LEFT_ON" then	
+		Delay(200);
+		local wt = measureVoltage(par.sign);
+		return wt;
+	end
+
+	if par.flag=="SMC_LID_RIGHT_OFF" then
+		TCPSendReceive("leftemc OFF");
+		Delay(200);
+		local wt = measureVoltage(par.sign);
+		return wt;
+		
+	end
+
+	if par.flag=="SMC_LID_RIGHT_ON" then
+		TCPSendReceive("rightemc ON");
+		Delay(200);
+		local wt = measureVoltage(par.sign);
+		return wt;
+	end
+	
+	if par.flag=="SMC_LID_L_RIGHT_ON" then
+		Delay(200);
+		local wt = measureVoltage(par.sign);
+		return wt;
+	end
+
+
+	if par.flag=="SMC_LID_L_BOTH_ON" then
+		TCPSendReceive("emc ON");
+		Delay(200);
+		local wt = measureVoltage(par.sign);
+		TCPSendReceive("emc OFF");
+		Delay(500);
+		return wt;
+	end
+
+	return -1 ,"par error please check again";
+
+end
+
+function HallSensorTest()
+	-- body
+	local str = "";
+	TCPSendReceive("emc OFF");
+	Delay(50);
+	--local ret = measureVoltage("SMC_LID;SMC_LID_LEFT");
+	local ret = PACSocket:TCPSendReceive("readv SMC_LID;SMC_LID_LEFT",3000,"\n");
+		if ret == nil then
+			return nil ; 
+		end
+		if (string.len(ret)>0) then
+			local temp = string.sub(ret,6,string.len(ret));
+		end
+	str = str..temp..";";
+	TCPSendReceive("leftemc ON");
+	Delay(50);
+	--local ret = measureVoltage("SMC_LID_LEFT;SMC_LID");
+	local ret = PACSocket:TCPSendReceive("readv SMC_LID;SMC_LID_LEFT",3000,"\n");
+	if ret == nil then
+		return nil ; 
+	end
+	if (string.len(ret)>0) then
+		local temp = string.sub(ret,6,string.len(ret));
+	end
+	str = str..temp..";";
+	TCPSendReceive("leftemc OFF");
+	Delay(50);
+	local ret = measureVoltage("SMC_LID_RIGHT");
+	str = str..ret..";";
+	TCPSendReceive("rightemc ON");
+	Delay(50);
+	local ret = measureVoltage("SMC_LID_RIGHT;SMC_LID");
+	str = str..ret..";";
+	TCPSendReceive("emc ON");
+	Delay(50);
+	local ret = measureVoltage("SMC_LID");
+	str = str..ret;
+	HallTable = __split(str,";");
+	TCPSendReceive("emc OFF");
+end
+
+KeyTable_ISO = {
+	[14]="r1-c1";[13]="r1-c2";[12]="r1-c3";[11]="r1-c4";[10]="r1-c5";[9]="r1-c6";[8]="r1-c7";[7]="r1-c8";[6]="r1-c9";[5]="r1-c10";[4]="r1-c11";[3]="r1-c12";[2]="r1-c13";[1]="r1-c14";
+	[29]="r2-c1";[28]="r2-c2";[27]="r2-c3";[26]="r2-c4";[25]="r2-c5";[24]="r2-c6";[23]="r2-c7";[22]="r2-c8";[21]="r2-c9";[20]="r2-c10";[19]="r2-c11";[18]="r2-c12";[17]="r2-c13";[16]="r2-c14";[15]="r2-c15";
+	[43]="r3-c1";[42]="r3-c2";[41]="r3-c3";[40]="r3-c4";[39]="r3-c5";[38]="r3-c6";[37]="r3-c7";[36]="r3-c8";[35]="r3-c9";[34]="r3-c10";[33]="r3-c11";[32]="r3-c12";[31]="r3-c13";[30]="r3-c14";[44]="r3-c15";
+	[45]="r4-c1";[60]="r4-c2";[59]="r4-c3";[58]="r4-c4";[57]="r4-c5";[56]="r4-c6";[55]="r4-c7";[54]="r4-c8";[53]="r4-c9";[52]="r4-c10";[51]="r4-c11";[50]="r4-c12";[49]="r4-c13";[48]="r4-c14";[47]="r4-c15";[46]="r4-c16";
+	[75]="r5-c1";[74]="r5-c2";[73]="r5-c3";[72]="r5-c4";[71]="r5-c5";[70]="r5-c6";[69]="r5-c7";[68]="r5-c8";[67]="r5-c9";[66]="r5-c10";[65]="r5-c11";[64]="r5-c12";[63]="r5-c13";[62]="r5-c14";
+	[89]="r6-c1";[88]="r6-c2";[87]="r6-c3";[86]="r6-c4";[85]="r6-c5";[84]="r6-c6";[83]="r6-c7";[82]="r6-c8";[81]="r6-c9";[80]="r6-c10";[79]="r6-c11";[77]="r6-c12";[76]="r6-c13";
+	[78]="r7-c1";[61]="green-capslock";
+	};
+
+function SelfLedCheck()
+
+	local ret = PACSocket:TCPSendReceive("camera",3000,"\n");
+	if ret ==nil then 
+		return "get camera data error";
+	end
+	if #ret >0 then
+		ret = string.gsub(ret,"\n","");
+		ret = string.gsub(ret,"\r","");
+		DbgOut(ret);
+		ret1=string.sub(ret,5,#ret)
+		local ISOKey="11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+		local i =1;
+		local abc="";
+			for i=1,#ret1 do
+				if string.sub(ret1,i,i) ~=string.sub(ISOKey,i,i) then
+					if KeyTable_ISO[i] == nil then
+						return string.format("KeyTable_ISO[%d]"..i).."is nil";
+					end
+						abc = abc..KeyTable_ISO[i]..";";	
+				end
+			end
+		if abc == "" then
+			return "PASS"
+		end
+		return abc;
+	end
+end
+
+
+
+function Call_Keyboard_ID_Check()
+
+	 if global_SN == nil or global_SN == "" then
+			return -1;
+	end
+
+	 if __EEcode == nil or __EEcode == "" then
+			return -1;
+	end
+	 local wt = INTERFACE:Call_GET_KeyBoardType_all(ProductPID,global_SN,__EEcode);
+	 Delay(10);
+
+	if wt == nil or wt == "" then
+			return -1;
+	end
+		KeyboardType_EEECode = wt;
+		return wt;
+end
+
+function Call_Check_Keyboard_Type_Lua(par)
+
+	local KBTypeCheck = INTERFACE:Call_Check_Keyboard_Type(par)
+	if KBTypeCheck==nil or KBTypeCheck=="" then
+		return nil,"nil,please check the connection"
+	end
+	return KBTypeCheck;
+end
+
+function RelaseElectirc()
+
+	OnlySerialPort:ClearBuffer();
+	Delay(50);
+	OnlySerialPort:WriteString("S3 ON\r\n");
+	Delay(50);
+	OnlySerialPort:ClearBuffer();
+	OnlySerialPort:WriteString("JPM1 ON\r\n");
+	Delay(1000);
+	OnlySerialPort:ClearBuffer();
+	OnlySerialPort:WriteString("S3 OFF\r\n");
+	Delay(50);
+	OnlySerialPort:ClearBuffer();
+	OnlySerialPort:WriteString("JPM1 OFF\r\n");
+end
+
+--------------------TestItem Function End------------------------
+
+------------------------ Public Used Start-------------------------
+
+function GetHIDReport(param, time_out, detect)
+	local app_path_hidreport = "/usr/local/bin/hidreport";
+	local hidreport_output_path = "/tmp/osExecute.txt";
+	local ret = nil;
+	if (detect == nil or type(detect)~="string") then
+		detect = "[\r\n]"
+	end
+	os.remove(hidreport_output_path);
+	if (param) then
+		local cmd = string.format("%s %s > %s", app_path_hidreport, param, hidreport_output_path);
+		os.execute(cmd);
+		local timeout = time_out;
+		if (timeout==nil or timeout<100) then
+			timeout = 100
+		end
+		Delay(500);
+		for i=1, timeout/100 do
+			ret = ReadFile(hidreport_output_path);
+			if (ret and #ret>0) then
+				if (string.match(ret, detect)) then
+					break;
+				end 
+			end
+			Delay(100);
+		end
+	end
+	return ret;
+end
+
+
+
+function ReadFile(file_path)
+	local ret = nil;
+	local path = file_path;
+	local f = io.open(path, "r");
+	if f == nil then return nil, "Failed to open file: "..path; end
+	ret = f:read("*all");
+	f:close();
+	return ret;
+end
+
+function __split(str, reps)
+	local r = {};
+	if (str == nil) then 
+		return nil; 
+	end
+	string.gsub(str, "[^"..reps.."]+", function(w) table.insert(r, w) end);
+	return r;
+end
+
+
+function capsLockLED_On()
+	if capsLocak == false then
+		PACSocket:TCPSendReceive("wio 11 21 1",3000,"\n");
+		Delay(500);
+		PACSocket:TCPSendReceive("wio 11 21 0",3000,"\n");
+		capsLocak = true;
+		DbgOut("CapsLock Turn on");
+	end
+end
+
+function capsLockLED_Off()
+	if capsLocak == true then
+		PACSocket:TCPSendReceive("wio 11 21 1",3000,"\n");
+		Delay(500);
+		PACSocket:TCPSendReceive("wio 11 21 0",3000,"\n");
+		capsLocak = false;
+		DbgOut("CapsLock Turn off");
+	end
+end
+
+function McuTrigger(par)
+
+end
+
+function funSkipPerV(par)
+	if KeyboardName =="ANSI" or KeyboardName =="ISO" then
+		if TP0906_V == nil then 
+			return false;
+		end
+		local b = (tonumber(TP0906_V) > 2.7); 
+		local rslt=0;
+		rslt = not (b == par ) ;
+		return rslt ;
+	end
+	if KeyboardName =="JIS" then
+		if TP0201_V == nil then 
+			return false;
+		end
+		local b = (tonumber(TP0201_V) > 2.7); 
+		local rslt=0;
+		rslt = not (b == par ) ;
+		return rslt ;
+	end
+	
+end
+
+
